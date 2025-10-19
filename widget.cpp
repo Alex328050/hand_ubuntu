@@ -1,0 +1,469 @@
+#include "widget.h"
+#include "ui_widget.h"
+#include "myInferior.h"
+
+#include <QMessageBox>
+#include <QSerialPort>
+#include <QSerialPortInfo>
+#include <QTimer>
+#include <QTcpSocket>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonParseError>
+#include <QJsonArray>
+#include <cstdlib>
+#include <QUdpSocket>
+#include "handData.cpp"
+
+int isInferiorReadyFlag = 0;
+int action = 0;
+int mode = 0;
+int sinCount = 0;
+int wristCount = -1;
+QByteArray receiveBuffer;
+uint16_t handMax[10] = {ID1MAX, ID2MAX, ID3MAX, ID4MAX, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX};
+uint16_t handMin[10] = {ID1MIN, ID2MIN, ID3MIN, ID4MIN, ID5MIN, ID6MIN, ID7MIN, ID8MIN, ID9MIN, ID10MIN};
+float ADCValue[5] = {0};
+
+Widget::Widget(QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::Widget)
+{
+    QStringList serialNamePort;
+
+    ui->setupUi(this);
+    this->setWindowTitle("天工巧手");
+
+    /* 创建一个串口对象 */
+    serialPort = new QSerialPort(this);
+    tcpSocket = new QTcpSocket(this);
+    UR5Socket = new QTcpSocket(this);
+    golveSocket = new QUdpSocket(this);
+    golveSendSocket = new QUdpSocket(this);
+    golveOrderSocket = new QUdpSocket(this);
+
+    UR5Connect("192.168.205.128");
+
+    /* 搜索所有可用串口 */
+    foreach (const QSerialPortInfo &inf0, QSerialPortInfo::availablePorts()) {
+        serialNamePort<<inf0.portName();
+    }
+    serialNamePort.sort();
+    ui->serialBox->addItems(serialNamePort);
+
+    QTimer* myTimerCOM = new QTimer(this);
+    connect(myTimerCOM, &QTimer::timeout, this, &Widget::updateCOM);
+    myTimerCOM->start(100);
+
+    QTimer* myTimerTransmit = new QTimer(this);
+    connect(myTimerTransmit, &QTimer::timeout, this, &Widget::serialTransmit);
+    myTimerTransmit->start(5);
+
+    QTimer* myTimerAction7 = new QTimer(this);
+    connect(myTimerAction7, &QTimer::timeout, this, &Widget::Action7);
+
+    myTimerTcpReceive = new QTimer(this);
+    connect(myTimerTcpReceive, &QTimer::timeout, this, &Widget::tcpStart);
+
+    allSlider.push_back(ui->actionSlider1);
+    allSlider.push_back(ui->actionSlider2);
+    allSlider.push_back(ui->actionSlider3);
+    allSlider.push_back(ui->actionSlider4);
+    allSlider.push_back(ui->actionSlider5);
+    allSlider.push_back(ui->actionSlider6);
+    allSlider.push_back(ui->actionSlider7);
+    allSlider.push_back(ui->actionSlider8);
+    allSlider.push_back(ui->actionSlider9);
+    allSlider.push_back(ui->actionSlider10);
+    allSlider.push_back(ui->actionSlider11);
+    allSlider.push_back(ui->actionSlider12);
+    allSlider.push_back(ui->actionSlider13);
+    allSlider.push_back(ui->actionSlider14);
+    allSlider.push_back(ui->actionSlider15);
+    allSlider.push_back(ui->actionSlider16);
+    allSlider.push_back(ui->actionSlider17);
+    allSlider.push_back(ui->actionSlider18);
+
+    allLabel.push_back(ui->actionLabel1);
+    allLabel.push_back(ui->actionLabel2);
+    allLabel.push_back(ui->actionLabel3);
+    allLabel.push_back(ui->actionLabel4);
+    allLabel.push_back(ui->actionLabel5);
+    allLabel.push_back(ui->actionLabel6);
+    allLabel.push_back(ui->actionLabel7);
+    allLabel.push_back(ui->actionLabel8);
+    allLabel.push_back(ui->actionLabel9);
+    allLabel.push_back(ui->actionLabel10);
+    allLabel.push_back(ui->actionLabel11);
+    allLabel.push_back(ui->actionLabel12);
+    allLabel.push_back(ui->actionLabel13);
+    allLabel.push_back(ui->actionLabel14);
+    allLabel.push_back(ui->actionLabel15);
+    allLabel.push_back(ui->actionLabel16);
+    allLabel.push_back(ui->actionLabel17);
+    allLabel.push_back(ui->actionLabel18);
+
+    for (int i = 0; i < 17; ++i) allSlider[i]->setValue(handData[i]);
+    for (int i = 0; i < 10; ++i) allSlider[i]->setMinimum(handMin[i]);
+    for (int i = 0; i < 18; ++i)
+    {
+        allLabel[i]->clear();
+        allLabel[i]->setNum(allSlider[i]->value());
+    }
+
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+
+void Widget::updateCOM()
+{
+    QStringList serialNamePort;
+    QStringList boxName;
+    QStringList addName;
+    QStringList deleteName;
+    for (int i = 0; i < ui->serialBox->count(); ++i) boxName << ui->serialBox->itemText(i);
+    foreach (const QSerialPortInfo &inf0, QSerialPortInfo::availablePorts()) {
+        serialNamePort << inf0.portName();
+    }
+    serialNamePort.sort();
+    boxName.sort();
+    foreach (const QString &str, serialNamePort) {
+        bool isStrDifferent = true;
+        foreach (const QString &strInBox, boxName) {
+            if (str == strInBox) isStrDifferent = false;
+        }
+        if (isStrDifferent) addName << str;
+    }
+    foreach (const QString &strInBox, boxName) {
+        bool isStrInBoxDifferent = true;
+        foreach (const QString &str, serialNamePort) {
+            if (strInBox == str) isStrInBoxDifferent = false;
+        }
+        if (isStrInBoxDifferent) deleteName << strInBox;
+    }
+    foreach (const QString &addStr, addName)
+    {
+        int insertPos = 0;
+        for(; insertPos < ui->serialBox->count() && addStr > ui->serialBox->itemText(insertPos); ++insertPos);
+        ui->serialBox->insertItem(insertPos, addStr);
+    }
+    foreach (const QString &deleteStr, deleteName) {
+        for (int i = 0; i < ui->serialBox->count(); ++i)
+        {
+            if (deleteStr == ui->serialBox->itemText(i)) ui->serialBox->removeItem(i);
+        }
+    }
+    ui->ADCLabel1->setText(QString::number(ADCValue[0], 'f', 2));
+    ui->ADCLabel2->setText(QString::number(ADCValue[1], 'f', 2));
+    ui->ADCLabel3->setText(QString::number(ADCValue[2], 'f', 2));
+    ui->ADCLabel4->setText(QString::number(ADCValue[3], 'f', 2));
+    ui->ADCLabel5->setText(QString::number(ADCValue[4], 'f', 2));
+}
+
+void Widget::on_openButton_clicked()
+{
+    /* 串口设置 */
+    serialPort->setPortName(ui->serialBox->currentText());
+    serialPort->setBaudRate(ui->baudrateBox->currentText().toInt());
+    serialPort->setDataBits(QSerialPort::Data8);
+    serialPort->setStopBits(QSerialPort::OneStop);
+    serialPort->setParity(QSerialPort::NoParity);
+
+    /* 打开串口提示框 */
+    if (true == serialPort->open(QIODevice::ReadWrite))
+    {
+        QMessageBox::information(this, "提示", "串口打开成功！");
+        connect(serialPort, &QSerialPort::readyRead, this, &Widget::serialReceive);
+    }
+    else
+    {
+        QMessageBox::critical(this, "提示", "串口打开失败！");
+    }
+}
+
+void Widget::on_closeButton_clicked()
+{
+    serialPort->close();
+    QMessageBox::critical(this, "提示", "串口关闭！");
+}
+
+void Widget::serialTransmit()
+{
+    if (serialPort->isOpen())
+    {
+        if (isInferiorReadyFlag == 1)
+        {
+            switch (mode) {
+            case 1:
+                transmitData[0] = 0xFF;
+                transmitData[1] = 0xFE;
+                for (uint8_t i = 2; i < 2+34+1; ++i)
+                {
+                    transmitData[i] = 0xFF;
+                }
+                transmitData[2+34+1] = calCheckSum(transmitData, 2+34+1+1);
+                transmitData[2+34+1+1] = 0xFD;
+                transmitData[2+34+1+2] = 0xFC;
+                serialPort->write(transmitData, 40);
+                break;
+            case 2:
+                transmitData[0] = 0xFF;
+                transmitData[1] = 0xFE;
+                for (uint8_t i = 2; i < 2+34+1; ++i)
+                {
+                    transmitData[i] = 0xFE;
+                }
+                transmitData[2+34+1] = calCheckSum(transmitData, 2+34+1+1);
+                transmitData[2+34+1+1] = 0xFD;
+                transmitData[2+34+1+2] = 0xFC;
+                serialPort->write(transmitData, 40);
+                break;
+            default:
+                break;
+            }
+            if (mode == 1 || mode == 2) mode = 0;
+            uint8_t isClearFault = 0;
+            switch (action) {
+            case 1:
+                //memcpy(handData, myhandData1, sizeof(myhandData1));
+                memcpy(handData, myhandData7[handData_index], sizeof(handData));
+                break;
+            case 2:
+                memcpy(handData, myhandData2, sizeof(myhandData2));
+                break;
+            case 3:
+                handData[10] += wristCount;
+                handData[11] += wristCount;
+                if (handData[10] == 200) wristCount = wristStep;
+                else if (handData[10] == 1300) wristCount = -wristStep;
+                break;
+            case 4:
+                handData[10] += wristCount;
+                handData[11] += -wristCount;
+                if (handData[10] == 500) wristCount = wristStep;
+                else if (handData[10] == 1100) wristCount = -wristStep;
+                break;
+            case 5:
+                memcpy(handData, myhandData6[handData_index], sizeof(handData));
+                break;
+            case 6:
+                memcpy(handData, myhandData5[handData_index], sizeof(handData));
+                break;
+            case 7:
+                memcpy(handData, myhandData4[handData_index], sizeof(handData));
+                break;
+            case 8:
+                for (uint8_t i = 0; i < 5; ++i)
+                {
+                    if (ADCValue[i] > 10)
+                    {
+                        handData[i*2] += (handMax[i*2]-handMin[i*2]) / 50;
+                        handData[i*2+1] += (handMax[i*2+1]-handMin[i*2+1]) / 50;
+                    }
+                }
+                for (uint8_t i = 0; i < 10; ++i) if (handData[i] >= handMax[i]) handData[i] = handMax[i];
+                break;
+            case 9:
+
+            default:
+                break;
+            }
+
+            if (action == 0 && mode == 0) isClearFault = 1;
+            else isClearFault = 0;
+            calTransmit(handData, isClearFault);
+            serialPort->write(transmitData, 2+34+1+1+2);
+            isInferiorReadyFlag = 0;
+        }
+    }
+}
+
+void Widget::serialReceive()
+{
+    QByteArray buffer = serialPort->readAll();
+    if (buffer.size() >= 1)
+    {
+        if (buffer[0] == -1)
+        {
+            receiveBuffer.clear();
+            receiveBuffer.push_back(buffer);
+        }
+        else receiveBuffer.push_back(buffer);
+    }
+    if (receiveBuffer.size() >= 9)
+    {
+        if (receiveBuffer[0] == -1 && receiveBuffer[1] == -2 && receiveBuffer[2] == 'O' && receiveBuffer[3] == 'K')
+        {
+            isInferiorReadyFlag = 1;
+            ADCValue[0] = (uint8_t)receiveBuffer[4] / 255.0 * 15.0;
+            ADCValue[1] = (uint8_t)receiveBuffer[5] / 255.0 * 15.0;
+            ADCValue[2] = (uint8_t)receiveBuffer[7] / 255.0 * 15.0;
+            ADCValue[3] = (uint8_t)receiveBuffer[8] / 255.0 * 15.0;
+            ADCValue[4] = (uint8_t)receiveBuffer[6] / 255.0 * 15.0;
+        }
+    }
+    else isInferiorReadyFlag = 0;
+}
+
+void Widget::on_action1_clicked()
+{
+    mode = 0;
+    ui->modeLabel->clear();
+    ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
+    myTimerAction7->stop();
+    myTimerAction7 = new QTimer(this);
+    connect(myTimerAction7, &QTimer::timeout, this, &Widget::Action7);
+    myTimerAction7->start(1000);
+    handData_index = 0;
+    action = 1;
+}
+
+
+void Widget::on_action2_clicked()
+{
+    mode = 0;
+    ui->modeLabel->clear();
+    ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
+    action = 2;
+}
+
+
+void Widget::on_action3_clicked()
+{
+    mode = 0;
+    ui->modeLabel->clear();
+    ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
+    for (int i = 0; i < 10; ++i) handData[i] = handMax[i];
+    handData[10] = wristStartPos;
+    handData[11] = wristStartPos;
+    handData[12] = Servo1Start;
+    handData[13] = Servo2Start;
+    handData[14] = Servo3Start;
+    handData[15] = Servo4Start;
+    handData[16] = Servo5Start;
+    wristCount = wristStep;
+    action = 3;
+}
+
+
+void Widget::on_action4_clicked()
+{
+    mode = 0;
+    ui->modeLabel->clear();
+    ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
+    for (int i = 0; i < 10; ++i) handData[i] = handMax[i];
+    for (int i = 4; i < 8; ++i) handData[i] = handMin[i];
+    handData[10] = wristStartPos;
+    handData[11] = wristStartPos;
+    handData[12] = Servo1Start;
+    handData[13] = Servo2Start;
+    handData[14] = Servo3Start;
+    handData[15] = Servo4Start;
+    handData[16] = Servo5Start;
+    wristCount = wristStep;
+    action = 4;
+}
+
+void Widget::on_action5_clicked()
+{
+    mode = 0;
+    ui->modeLabel->clear();
+    ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
+    myTimerAction7->stop();
+    myTimerAction7 = new QTimer(this);
+    connect(myTimerAction7, &QTimer::timeout, this, &Widget::Action7);
+    myTimerAction7->start(100);
+    handData_index = 0;
+    action = 5;
+}
+
+
+void Widget::on_action6_clicked()
+{
+    mode = 0;
+    ui->modeLabel->clear();
+    ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
+    myTimerAction7->stop();
+    myTimerAction7 = new QTimer(this);
+    connect(myTimerAction7, &QTimer::timeout, this, &Widget::Action7);
+    myTimerAction7->start(150);
+    handData_index = 0;
+    action = 6;
+}
+
+void Widget::on_modeWire_clicked()
+{
+    mode = 1;
+}
+
+
+void Widget::on_modeWireless_clicked()
+{
+    mode = 2;
+}
+
+void Widget::on_resume_clicked()
+{
+    mode = 0;
+    ui->modeLabel->clear();
+    ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
+    action = 0;
+    for (int i = 0; i < 10; ++i) handData[i] = handMax[i];
+    handData[10] = wristStartPos;
+    handData[11] = wristStartPos;
+    handData[12] = Servo1Start;
+    handData[13] = Servo2Start;
+    handData[14] = Servo3Start;
+    handData[15] = Servo4Start;
+    handData[16] = Servo5Start;
+}
+
+void Widget::on_action7_clicked()
+{
+    mode = 0;
+    ui->modeLabel->clear();
+    ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
+    myTimerAction7->stop();
+    myTimerAction7 = new QTimer(this);
+    connect(myTimerAction7, &QTimer::timeout, this, &Widget::Action7);
+    myTimerAction7->start(300);
+    handData_index = 0;
+    action = 7;
+}
+
+void Widget::Action7()
+{
+    if (mode == 0 && action == 7)
+    {
+        ++handData_index;
+        if (handData_index > 3) handData_index = 0;
+    }
+    else if (mode == 0 && action == 5)
+    {
+        ++handData_index;
+        if (handData_index > 9) handData_index = 0;
+    }
+    else if (mode == 0 && action == 6)
+    {
+        ++handData_index;
+        if (handData_index > 1) handData_index = 0;
+    }
+    else if (mode == 0 && action == 1)
+    {
+        ++handData_index;
+        if (handData_index > 32) handData_index = 0;
+    }
+}
+
+void Widget::on_action8_clicked()
+{
+    mode = 0;
+    ui->modeLabel->clear();
+    ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
+    for (uint8_t i = 0; i < 10; ++i) handData[i] = handMin[i];
+    handData[1] += 300;
+    action = 8;
+}
