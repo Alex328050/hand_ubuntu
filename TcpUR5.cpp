@@ -1,12 +1,21 @@
 #include "widget.h"
 #include <QTcpSocket>
 
-void Widget::UR5Connect(QString ipAddr)
+void Widget::UR5Connect()
 {
-    if (UR5Socket->state() == QTcpSocket::UnconnectedState)
-    {
-        UR5Socket->connectToHost(ipAddr, 30001); //连接至服务器，端口30002
-    }
+    disconnect(UR5Socket, SIGNAL(readyRead()), nullptr, nullptr);
+    connect(UR5Socket, SIGNAL(readyRead()), this, SLOT(UR5Receive()));
+}
+
+void Widget::UR5Start()
+{
+    if (UR5Socket->state() == QTcpSocket::UnconnectedState) UR5Socket->connectToHost("127.0.0.1", 8);
+    connect(UR5Socket, SIGNAL(connected()), this, SLOT(UR5Connect()));
+}
+
+void Widget::UR5Receive()
+{
+
 }
 
 void Widget::armMove(double mx, double my, double mz, double mrx, double mry, double mrz)

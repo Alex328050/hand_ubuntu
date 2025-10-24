@@ -1,28 +1,27 @@
 #include <stdint.h>
 #include "widget.h"
 
-uint16_t myhandData3[17] = {ID1MAX, ID2MAX, ID3MAX, ID4MAX, ID5MIN, ID6MIN, ID7MIN, ID8MIN, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start};
-uint16_t myhandData1[17] = {ID1MAX-100, ID2MIN+150, ID3MAX-100, ID4MIN+150, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start};
-uint16_t myhandData2[17] = {ID1MAX-400, ID2MIN+100, ID3MAX-100, ID4MIN, ID5MAX-200, ID6MIN+50, ID7MAX-400, ID8MIN, ID9MAX-400, ID10MIN, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start};
-uint16_t myhandData4[4][17] =
+uint8_t handData_index = 0;
+uint16_t myhandDataOK[17] = {ID1MAX-100, ID2MIN+150, ID3MAX-100, ID4MIN+150, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start};
+uint16_t myhandDataYEAH[17] = {ID1MAX-400, ID2MIN+100, ID3MAX-100, ID4MIN, ID5MAX-200, ID6MIN+50, ID7MAX-400, ID8MIN, ID9MAX-400, ID10MIN, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start};
+uint16_t myhandDataPOINTFINGER[4][17] =
 {
     {1224, 1110, 1110, 1282, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, 47, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
     {1224, 1110, ID3MAX, ID4MAX, 1029, 980, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, 33, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
     {1224, 1110, ID3MAX, ID4MAX, ID5MAX, ID6MAX, 1037, 980, ID9MAX, ID10MAX, wristStartPos, wristStartPos, 15, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
     {1224, 1110, ID3MAX, ID4MAX, ID5MAX, ID6MAX, ID7MAX, ID8MAX, 531, 1176, wristStartPos, wristStartPos, 0, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
 };
-uint8_t handData_index = 0;
-// uint16_t myhandData5[2][17] =
-// {
-//     {ID1MAX, ID2MAX, ID3MAX, ID4MAX, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, 120, 75, 49, 19},
-//     {ID1MAX, 890, ID3MAX, ID4MAX, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, 59, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
-// };
-uint16_t myhandData5[2][17] =
+uint16_t myhandDataWIDEANDSHRINK[2][17] =
+{
+    {ID1MAX, ID2MAX, ID3MAX, ID4MAX, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, 120, 75, 49, 19},
+    {ID1MAX, 890, ID3MAX, ID4MAX, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, 59, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
+};
+uint16_t myhandDataPRESS[2][17] =
 {
     {ID1MAX, ID2MAX, ID3MAX-500, ID4MAX, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
     {ID1MAX, ID2MAX, ID3MAX-800, ID4MAX, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
 };
-uint16_t myhandData6[10][17] =
+uint16_t myhandDataSWING[10][17] =
 {
     {ID1MIN+300, ID2MIN+250, ID3MAX, ID4MAX, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
     {ID1MIN+300, ID2MIN+250, ID3MIN, ID4MIN, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
@@ -35,7 +34,7 @@ uint16_t myhandData6[10][17] =
     {ID1MAX, ID2MAX, ID3MAX, ID4MAX, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MIN, ID10MIN, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
     {ID1MAX, ID2MAX, ID3MAX, ID4MAX, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
 };
-uint16_t myhandData7[33][17] =
+uint16_t myhandDataACTION33[33][17] =
 {
     {1275, 2000, 706, 1221, 539, 871, 514, 1355, 155, 1158, 800, 800, 110, 81, 66, 65, 48},
     {1147, 903, 706, 857, 539, 637, 514, 939, 155, 706, 800, 800, 110, 81, 66, 65, 48},
@@ -70,4 +69,12 @@ uint16_t myhandData7[33][17] =
     {1122, 793, 1456, 2000, 539, 1132, 514, 1320, 155, 742, 800, 800, 107, 81, 66, 60, 32},
     {740, 1138, 706, 1244, 2000, 2000, 2000, 2000, 1059, 1396, 800, 800, 107, 81, 66, 60, 32},
     {1255, 1076, 1213, 1193, 867, 954, 514, 939, 155, 706, 800, 800, 52, 81, 66, 65, 48},
+};
+
+uint16_t myhandDataPiano[4][17] =
+{
+    {ID1MAX, ID2MAX, ID3MAX-450, ID4MAX-350, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start+15, Servo3Start, Servo4Start, Servo5Start-15},
+    {ID1MAX, ID2MAX, ID3MAX-450, ID4MAX-350, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start+15, Servo3Start, Servo4Start, Servo5Start-15},
+    {ID1MAX, ID2MAX, ID3MAX-450, ID4MAX-350, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start+15, Servo3Start, Servo4Start, Servo5Start-15},
+    {ID1MAX, ID2MAX, ID3MAX, ID4MAX, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start+15, Servo3Start, Servo4Start, Servo5Start-15},
 };

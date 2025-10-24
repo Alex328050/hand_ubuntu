@@ -26,8 +26,8 @@ double allRatio[15] = {ID1ratio,ID2ratio,ID3ratio,ID4ratio,ID5ratio,ID6ratio,ID7
 
 void Widget::on_modeGolve_clicked()
 {
-    action = 0;
-    mode = 4;
+    action = NOACTION;
+    mode = GOLVE;
     golveSendSocket->writeDatagram("s", QHostAddress("127.0.0.1"), 1349);
     ui->modeLabel->clear();
     ui->modeLabel->setText(QString("当前模式：数据手套模式"));
@@ -44,7 +44,7 @@ void Widget::on_modeGolve_clicked()
 
 void Widget::golveReceive()
 {
-    if (action == 0 && mode == 4)
+    if (action == NOACTION && mode == GOLVE)
     {
         while (golveSocket->hasPendingDatagrams()) {
             QByteArray datagram;
@@ -102,7 +102,7 @@ void Widget::golveReceive()
 
 void Widget::golveOrderReceive()
 {
-    if (action == 0 && mode == 4)
+    if (action == NOACTION && mode == GOLVE)
     {
         while (golveOrderSocket->hasPendingDatagrams()) {
             QByteArray datagram;
@@ -119,7 +119,7 @@ void Widget::golveOrderReceive()
 
 void Widget::on_golveAdjustButton_clicked()
 {
-    if (action == 0 && mode == 4)
+    if (action == NOACTION && mode == GOLVE)
     {
         if (adjustProgress == 0)
         {

@@ -16,8 +16,8 @@
 #include "handData.cpp"
 
 int isInferiorReadyFlag = 0;
-int action = 0;
-int mode = 0;
+ACTION action = NOACTION;
+MODE mode = STORED_ACTION;
 int sinCount = 0;
 int wristCount = -1;
 QByteArray receiveBuffer;
@@ -42,8 +42,6 @@ Widget::Widget(QWidget *parent) :
     golveSendSocket = new QUdpSocket(this);
     golveOrderSocket = new QUdpSocket(this);
 
-    UR5Connect("192.168.205.128");
-
     /* 搜索所有可用串口 */
     foreach (const QSerialPortInfo &inf0, QSerialPortInfo::availablePorts()) {
         serialNamePort<<inf0.portName();
@@ -59,8 +57,8 @@ Widget::Widget(QWidget *parent) :
     connect(myTimerTransmit, &QTimer::timeout, this, &Widget::serialTransmit);
     myTimerTransmit->start(5);
 
-    QTimer* myTimerAction7 = new QTimer(this);
-    connect(myTimerAction7, &QTimer::timeout, this, &Widget::Action7);
+    QTimer* myTimerAction = new QTimer(this);
+    connect(myTimerAction, &QTimer::timeout, this, &Widget::ActionTimer);
 
     myTimerTcpReceive = new QTimer(this);
     connect(myTimerTcpReceive, &QTimer::timeout, this, &Widget::tcpStart);
@@ -197,24 +195,24 @@ void Widget::serialTransmit()
         if (isInferiorReadyFlag == 1)
         {
             switch (mode) {
-            case 1:
+            case WIRE:
                 transmitData[0] = 0xFF;
                 transmitData[1] = 0xFE;
                 for (uint8_t i = 2; i < 2+34+1; ++i)
                 {
-                    transmitData[i] = 0xFF;
+                    transmitData[i] = -1;
                 }
                 transmitData[2+34+1] = calCheckSum(transmitData, 2+34+1+1);
                 transmitData[2+34+1+1] = 0xFD;
                 transmitData[2+34+1+2] = 0xFC;
                 serialPort->write(transmitData, 40);
                 break;
-            case 2:
+            case WIRELESS:
                 transmitData[0] = 0xFF;
                 transmitData[1] = 0xFE;
                 for (uint8_t i = 2; i < 2+34+1; ++i)
                 {
-                    transmitData[i] = 0xFE;
+                    transmitData[i] = -2;
                 }
                 transmitData[2+34+1] = calCheckSum(transmitData, 2+34+1+1);
                 transmitData[2+34+1+1] = 0xFD;
@@ -224,59 +222,59 @@ void Widget::serialTransmit()
             default:
                 break;
             }
-            if (mode == 1 || mode == 2) mode = 0;
-            uint8_t isClearFault = 0;
-            switch (action) {
-            case 1:
-                //memcpy(handData, myhandData1, sizeof(myhandData1));
-                memcpy(handData, myhandData7[handData_index], sizeof(handData));
-                break;
-            case 2:
-                memcpy(handData, myhandData2, sizeof(myhandData2));
-                break;
-            case 3:
-                handData[10] += wristCount;
-                handData[11] += wristCount;
-                if (handData[10] == 200) wristCount = wristStep;
-                else if (handData[10] == 1300) wristCount = -wristStep;
-                break;
-            case 4:
-                handData[10] += wristCount;
-                handData[11] += -wristCount;
-                if (handData[10] == 500) wristCount = wristStep;
-                else if (handData[10] == 1100) wristCount = -wristStep;
-                break;
-            case 5:
-                memcpy(handData, myhandData6[handData_index], sizeof(handData));
-                break;
-            case 6:
-                memcpy(handData, myhandData5[handData_index], sizeof(handData));
-                break;
-            case 7:
-                memcpy(handData, myhandData4[handData_index], sizeof(handData));
-                break;
-            case 8:
-                for (uint8_t i = 0; i < 5; ++i)
-                {
-                    if (ADCValue[i] > 10)
+            if (mode == WIRE || mode == WIRELESS) mode = STORED_ACTION;
+            else
+            {
+                uint8_t isClearFault = 0;
+                switch (action) {
+                case OK:
+                    memcpy(handData, myhandDataOK, sizeof(handData));
+                    break;
+                case YEAH:
+                    memcpy(handData, myhandDataYEAH, sizeof(handData));
+                    break;
+                case WRISTFRONTBACK:
+                    handData[10] += wristCount;
+                    handData[11] += wristCount;
+                    if (handData[10] == 200) wristCount = wristStep;
+                    else if (handData[10] == 1300) wristCount = -wristStep;
+                    break;
+                case WRISTLEFTRIGHT:
+                    handData[10] += wristCount;
+                    handData[11] += -wristCount;
+                    if (handData[10] == 500) wristCount = wristStep;
+                    else if (handData[10] == 1100) wristCount = -wristStep;
+                    break;
+                case SWING:
+                    memcpy(handData, myhandDataSWING[handData_index], sizeof(handData));
+                    break;
+                case WIDEANDSHRINK:
+                    memcpy(handData, myhandDataWIDEANDSHRINK[handData_index], sizeof(handData));
+                    break;
+                case POINTFINGER:
+                    memcpy(handData, myhandDataPOINTFINGER[handData_index], sizeof(handData));
+                    break;
+                case BACKMOVE:
+                    for (uint8_t i = 0; i < 5; ++i)
                     {
-                        handData[i*2] += (handMax[i*2]-handMin[i*2]) / 50;
-                        handData[i*2+1] += (handMax[i*2+1]-handMin[i*2+1]) / 50;
+                        if (ADCValue[i] > 10)
+                        {
+                            handData[i*2] += (handMax[i*2]-handMin[i*2]) / 50;
+                            handData[i*2+1] += (handMax[i*2+1]-handMin[i*2+1]) / 50;
+                        }
                     }
+                    for (uint8_t i = 0; i < 10; ++i) if (handData[i] >= handMax[i]) handData[i] = handMax[i];
+                    break;
+                default:
+                    break;
                 }
-                for (uint8_t i = 0; i < 10; ++i) if (handData[i] >= handMax[i]) handData[i] = handMax[i];
-                break;
-            case 9:
 
-            default:
-                break;
+                if (action == RESUMEACTION && mode == STORED_ACTION) isClearFault = 1;
+                else isClearFault = 0;
+                calTransmit(handData, isClearFault);
+                serialPort->write(transmitData, 2+34+1+1+2);
+                isInferiorReadyFlag = 0;
             }
-
-            if (action == 0 && mode == 0) isClearFault = 1;
-            else isClearFault = 0;
-            calTransmit(handData, isClearFault);
-            serialPort->write(transmitData, 2+34+1+1+2);
-            isInferiorReadyFlag = 0;
         }
     }
 }
@@ -308,162 +306,123 @@ void Widget::serialReceive()
     else isInferiorReadyFlag = 0;
 }
 
-void Widget::on_action1_clicked()
-{
-    mode = 0;
-    ui->modeLabel->clear();
-    ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
-    myTimerAction7->stop();
-    myTimerAction7 = new QTimer(this);
-    connect(myTimerAction7, &QTimer::timeout, this, &Widget::Action7);
-    myTimerAction7->start(1000);
-    handData_index = 0;
-    action = 1;
-}
-
-
-void Widget::on_action2_clicked()
-{
-    mode = 0;
-    ui->modeLabel->clear();
-    ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
-    action = 2;
-}
-
-
-void Widget::on_action3_clicked()
-{
-    mode = 0;
-    ui->modeLabel->clear();
-    ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
-    for (int i = 0; i < 10; ++i) handData[i] = handMax[i];
-    handData[10] = wristStartPos;
-    handData[11] = wristStartPos;
-    handData[12] = Servo1Start;
-    handData[13] = Servo2Start;
-    handData[14] = Servo3Start;
-    handData[15] = Servo4Start;
-    handData[16] = Servo5Start;
-    wristCount = wristStep;
-    action = 3;
-}
-
-
-void Widget::on_action4_clicked()
-{
-    mode = 0;
-    ui->modeLabel->clear();
-    ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
-    for (int i = 0; i < 10; ++i) handData[i] = handMax[i];
-    for (int i = 4; i < 8; ++i) handData[i] = handMin[i];
-    handData[10] = wristStartPos;
-    handData[11] = wristStartPos;
-    handData[12] = Servo1Start;
-    handData[13] = Servo2Start;
-    handData[14] = Servo3Start;
-    handData[15] = Servo4Start;
-    handData[16] = Servo5Start;
-    wristCount = wristStep;
-    action = 4;
-}
-
-void Widget::on_action5_clicked()
-{
-    mode = 0;
-    ui->modeLabel->clear();
-    ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
-    myTimerAction7->stop();
-    myTimerAction7 = new QTimer(this);
-    connect(myTimerAction7, &QTimer::timeout, this, &Widget::Action7);
-    myTimerAction7->start(100);
-    handData_index = 0;
-    action = 5;
-}
-
-
-void Widget::on_action6_clicked()
-{
-    mode = 0;
-    ui->modeLabel->clear();
-    ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
-    myTimerAction7->stop();
-    myTimerAction7 = new QTimer(this);
-    connect(myTimerAction7, &QTimer::timeout, this, &Widget::Action7);
-    myTimerAction7->start(150);
-    handData_index = 0;
-    action = 6;
-}
-
 void Widget::on_modeWire_clicked()
 {
-    mode = 1;
+    mode = WIRE;
 }
-
 
 void Widget::on_modeWireless_clicked()
 {
-    mode = 2;
+    mode = WIRELESS;
 }
 
-void Widget::on_resume_clicked()
+void Widget::on_actionOK_clicked()
 {
-    mode = 0;
+    mode = STORED_ACTION;
+    action = OK;
     ui->modeLabel->clear();
     ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
-    action = 0;
-    for (int i = 0; i < 10; ++i) handData[i] = handMax[i];
+}
+
+void Widget::on_actionYEAH_clicked()
+{
+    mode = STORED_ACTION;
+    action = YEAH;
+    ui->modeLabel->clear();
+    ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
+}
+
+void Widget::on_actionWRISTLEFTANDRIGHT_clicked()
+{
+    mode = STORED_ACTION;
+    action = WRISTLEFTRIGHT;
+    for (uint8_t i = 0; i < 10; ++i) handData[i] = handMax[i];
     handData[10] = wristStartPos;
     handData[11] = wristStartPos;
-    handData[12] = Servo1Start;
-    handData[13] = Servo2Start;
-    handData[14] = Servo3Start;
-    handData[15] = Servo4Start;
-    handData[16] = Servo5Start;
-}
-
-void Widget::on_action7_clicked()
-{
-    mode = 0;
     ui->modeLabel->clear();
     ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
-    myTimerAction7->stop();
-    myTimerAction7 = new QTimer(this);
-    connect(myTimerAction7, &QTimer::timeout, this, &Widget::Action7);
-    myTimerAction7->start(300);
-    handData_index = 0;
-    action = 7;
 }
 
-void Widget::Action7()
+void Widget::on_actionWRISTFRONTANDBACK_clicked()
 {
-    if (mode == 0 && action == 7)
-    {
-        ++handData_index;
-        if (handData_index > 3) handData_index = 0;
-    }
-    else if (mode == 0 && action == 5)
-    {
-        ++handData_index;
-        if (handData_index > 9) handData_index = 0;
-    }
-    else if (mode == 0 && action == 6)
-    {
-        ++handData_index;
-        if (handData_index > 1) handData_index = 0;
-    }
-    else if (mode == 0 && action == 1)
-    {
-        ++handData_index;
-        if (handData_index > 32) handData_index = 0;
-    }
-}
-
-void Widget::on_action8_clicked()
-{
-    mode = 0;
+    mode = STORED_ACTION;
+    action = WRISTFRONTBACK;
+    for (uint8_t i = 0; i < 10; ++i) handData[i] = handMax[i];
+    handData[10] = wristStartPos;
+    handData[11] = wristStartPos;
     ui->modeLabel->clear();
     ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
-    for (uint8_t i = 0; i < 10; ++i) handData[i] = handMin[i];
-    handData[1] += 300;
-    action = 8;
+}
+
+void Widget::on_actionSWING_clicked()
+{
+    mode = STORED_ACTION;
+    action = SWING;
+    ui->modeLabel->clear();
+    ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
+    myTimerAction->stop();
+    myTimerAction = new QTimer(this);
+    connect(myTimerAction, &QTimer::timeout, this, &Widget::ActionTimer);
+    myTimerAction->start(200);
+}
+
+void Widget::on_actionWIDEANDSHRINK_clicked()
+{
+    mode = STORED_ACTION;
+    action = WIDEANDSHRINK;
+    ui->modeLabel->clear();
+    ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
+    myTimerAction->stop();
+    myTimerAction = new QTimer(this);
+    connect(myTimerAction, &QTimer::timeout, this, &Widget::ActionTimer);
+    myTimerAction->start(500);
+}
+
+void Widget::on_actionPOINTFINGER_clicked()
+{
+    mode = STORED_ACTION;
+    action = POINTFINGER;
+    ui->modeLabel->clear();
+    ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
+    myTimerAction->stop();
+    myTimerAction = new QTimer(this);
+    connect(myTimerAction, &QTimer::timeout, this, &Widget::ActionTimer);
+    myTimerAction->start(300);
+}
+
+void Widget::on_actionBACKMOVE_clicked()
+{
+    mode = STORED_ACTION;
+    action = BACKMOVE;
+    ui->modeLabel->clear();
+    ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
+}
+
+void Widget::on_actionACTION33_clicked()
+{
+    mode = STORED_ACTION;
+    action = ACTION33;
+    ui->modeLabel->clear();
+    ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
+    myTimerAction->stop();
+    myTimerAction = new QTimer(this);
+    connect(myTimerAction, &QTimer::timeout, this, &Widget::ActionTimer);
+    myTimerAction->start(800);
+}
+
+void Widget::on_actionRESUME_clicked()
+{
+    mode = STORED_ACTION;
+    action = RESUMEACTION;
+    ui->modeLabel->clear();
+    ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
+}
+
+void Widget::ActionTimer()
+{
+    ++handData_index;
+    if      (mode == STORED_ACTION && action == SWING) {if (handData_index > 9) handData_index = 0;}
+    else if (mode == STORED_ACTION && action == POINTFINGER) {if (handData_index > 3) handData_index = 0;}
+    else if (mode == STORED_ACTION && action == WIDEANDSHRINK) {if (handData_index > 1) handData_index = 0;}
+    else if (mode == STORED_ACTION && action == ACTION33) {if (handData_index > 32) handData_index = 0;}
 }

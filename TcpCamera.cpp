@@ -9,27 +9,27 @@
 
 void Widget::on_modeCamera_clicked()
 {
-    mode = 3;
+    mode = CAMERA;
     ui->modeLabel->clear();
     ui->modeLabel->setText(QString("当前模式：图像识别模式"));
-    action = 0;
+    action = NOACTION;
     system("bash -c 'cd ./handpose && source ./.venv/bin/activate && python ./dexhand-ble.py'");
     myTimerTcpReceive->start(10);
 }
 
 void Widget::on_modeRock_clicked()
 {
-    mode = 4;
+    mode = ROCK;
     ui->modeLabel->clear();
     ui->modeLabel->setText(QString("当前模式：猜拳模式"));
-    action = 0;
+    action = NOACTION;
     system("bash -c 'cd ./handpose && source ./.venv/bin/activate && python ./dexhand-ble.py'");
     myTimerTcpReceive->start(10);
 }
 
 void Widget::tcpReceive()
 {
-    if (action == 0 && mode == 3)
+    if (action == NOACTION && mode == CAMERA)
     {
         QByteArray tcpBuffer;
         tcpBuffer.append(tcpSocket->readAll());
@@ -77,7 +77,7 @@ void Widget::tcpReceive()
         }
         else if (tcpBuffer[0] != '{') tcpBuffer.clear();
     }
-    else if (action == 0 && mode == 4)
+    else if (action == NOACTION && mode == ROCK)
     {
         QByteArray tcpBuffer;
         tcpBuffer.append(tcpSocket->readAll());

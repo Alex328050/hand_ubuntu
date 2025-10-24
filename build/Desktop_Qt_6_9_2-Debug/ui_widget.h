@@ -27,29 +27,31 @@ class Ui_Widget
 public:
     QWidget *gridLayoutWidget;
     QGridLayout *gridLayout;
-    QPushButton *action6;
-    QComboBox *baudrateBox;
-    QPushButton *closeButton;
+    QPushButton *modeWire;
+    QPushButton *actionOK;
     QPushButton *modeGolve;
-    QComboBox *serialBox;
+    QPushButton *modeWireless;
+    QPushButton *modePiano;
+    QComboBox *baudrateBox;
+    QPushButton *actionACTION33;
     QPushButton *golveAdjustButton;
     QPushButton *modeEveryAction;
-    QPushButton *action8;
-    QPushButton *action2;
-    QPushButton *resume;
-    QPushButton *action7;
-    QPushButton *modeWire;
-    QLabel *serialLabel;
-    QPushButton *action3;
-    QPushButton *action9;
-    QLabel *baudrateLabel;
-    QPushButton *modeWireless;
-    QPushButton *action4;
-    QPushButton *action1;
+    QPushButton *actionBACKMOVE;
+    QPushButton *actionWRISTFRONTANDBACK;
+    QPushButton *closeButton;
+    QPushButton *actionWRISTLEFTANDRIGHT;
     QPushButton *modeCamera;
-    QPushButton *action5;
+    QPushButton *actionRESUME;
     QPushButton *openButton;
     QPushButton *modeRock;
+    QLabel *baudrateLabel;
+    QLabel *serialLabel;
+    QComboBox *serialBox;
+    QPushButton *actionYEAH;
+    QPushButton *actionSWING;
+    QPushButton *actionWIDEANDSHRINK;
+    QPushButton *actionPOINTFINGER;
+    QPushButton *modeObject;
     QWidget *gridLayoutWidget_2;
     QGridLayout *gridLayout_2;
     QComboBox *actionBox;
@@ -143,17 +145,37 @@ public:
     {
         if (Widget->objectName().isEmpty())
             Widget->setObjectName("Widget");
-        Widget->resize(1021, 618);
+        Widget->resize(1032, 640);
         gridLayoutWidget = new QWidget(Widget);
         gridLayoutWidget->setObjectName("gridLayoutWidget");
-        gridLayoutWidget->setGeometry(QRect(20, 50, 311, 551));
+        gridLayoutWidget->setGeometry(QRect(20, 60, 311, 561));
         gridLayout = new QGridLayout(gridLayoutWidget);
         gridLayout->setObjectName("gridLayout");
         gridLayout->setContentsMargins(0, 0, 0, 0);
-        action6 = new QPushButton(gridLayoutWidget);
-        action6->setObjectName("action6");
+        modeWire = new QPushButton(gridLayoutWidget);
+        modeWire->setObjectName("modeWire");
 
-        gridLayout->addWidget(action6, 5, 1, 1, 1);
+        gridLayout->addWidget(modeWire, 8, 0, 1, 1);
+
+        actionOK = new QPushButton(gridLayoutWidget);
+        actionOK->setObjectName("actionOK");
+
+        gridLayout->addWidget(actionOK, 3, 0, 1, 1);
+
+        modeGolve = new QPushButton(gridLayoutWidget);
+        modeGolve->setObjectName("modeGolve");
+
+        gridLayout->addWidget(modeGolve, 10, 0, 1, 1);
+
+        modeWireless = new QPushButton(gridLayoutWidget);
+        modeWireless->setObjectName("modeWireless");
+
+        gridLayout->addWidget(modeWireless, 8, 1, 1, 1);
+
+        modePiano = new QPushButton(gridLayoutWidget);
+        modePiano->setObjectName("modePiano");
+
+        gridLayout->addWidget(modePiano, 11, 1, 1, 1);
 
         baudrateBox = new QComboBox(gridLayoutWidget);
         baudrateBox->addItem(QString());
@@ -162,20 +184,10 @@ public:
 
         gridLayout->addWidget(baudrateBox, 1, 1, 1, 1);
 
-        closeButton = new QPushButton(gridLayoutWidget);
-        closeButton->setObjectName("closeButton");
+        actionACTION33 = new QPushButton(gridLayoutWidget);
+        actionACTION33->setObjectName("actionACTION33");
 
-        gridLayout->addWidget(closeButton, 2, 1, 1, 1);
-
-        modeGolve = new QPushButton(gridLayoutWidget);
-        modeGolve->setObjectName("modeGolve");
-
-        gridLayout->addWidget(modeGolve, 10, 0, 1, 1);
-
-        serialBox = new QComboBox(gridLayoutWidget);
-        serialBox->setObjectName("serialBox");
-
-        gridLayout->addWidget(serialBox, 0, 1, 1, 1);
+        gridLayout->addWidget(actionACTION33, 7, 0, 1, 1);
 
         golveAdjustButton = new QPushButton(gridLayoutWidget);
         golveAdjustButton->setObjectName("golveAdjustButton");
@@ -187,75 +199,35 @@ public:
 
         gridLayout->addWidget(modeEveryAction, 9, 1, 1, 1);
 
-        action8 = new QPushButton(gridLayoutWidget);
-        action8->setObjectName("action8");
+        actionBACKMOVE = new QPushButton(gridLayoutWidget);
+        actionBACKMOVE->setObjectName("actionBACKMOVE");
 
-        gridLayout->addWidget(action8, 6, 1, 1, 1);
+        gridLayout->addWidget(actionBACKMOVE, 6, 1, 1, 1);
 
-        action2 = new QPushButton(gridLayoutWidget);
-        action2->setObjectName("action2");
+        actionWRISTFRONTANDBACK = new QPushButton(gridLayoutWidget);
+        actionWRISTFRONTANDBACK->setObjectName("actionWRISTFRONTANDBACK");
 
-        gridLayout->addWidget(action2, 3, 1, 1, 1);
+        gridLayout->addWidget(actionWRISTFRONTANDBACK, 4, 1, 1, 1);
 
-        resume = new QPushButton(gridLayoutWidget);
-        resume->setObjectName("resume");
+        closeButton = new QPushButton(gridLayoutWidget);
+        closeButton->setObjectName("closeButton");
 
-        gridLayout->addWidget(resume, 7, 1, 1, 1);
+        gridLayout->addWidget(closeButton, 2, 1, 1, 1);
 
-        action7 = new QPushButton(gridLayoutWidget);
-        action7->setObjectName("action7");
+        actionWRISTLEFTANDRIGHT = new QPushButton(gridLayoutWidget);
+        actionWRISTLEFTANDRIGHT->setObjectName("actionWRISTLEFTANDRIGHT");
 
-        gridLayout->addWidget(action7, 6, 0, 1, 1);
-
-        modeWire = new QPushButton(gridLayoutWidget);
-        modeWire->setObjectName("modeWire");
-
-        gridLayout->addWidget(modeWire, 8, 0, 1, 1);
-
-        serialLabel = new QLabel(gridLayoutWidget);
-        serialLabel->setObjectName("serialLabel");
-
-        gridLayout->addWidget(serialLabel, 0, 0, 1, 1);
-
-        action3 = new QPushButton(gridLayoutWidget);
-        action3->setObjectName("action3");
-
-        gridLayout->addWidget(action3, 4, 0, 1, 1);
-
-        action9 = new QPushButton(gridLayoutWidget);
-        action9->setObjectName("action9");
-
-        gridLayout->addWidget(action9, 7, 0, 1, 1);
-
-        baudrateLabel = new QLabel(gridLayoutWidget);
-        baudrateLabel->setObjectName("baudrateLabel");
-
-        gridLayout->addWidget(baudrateLabel, 1, 0, 1, 1);
-
-        modeWireless = new QPushButton(gridLayoutWidget);
-        modeWireless->setObjectName("modeWireless");
-
-        gridLayout->addWidget(modeWireless, 8, 1, 1, 1);
-
-        action4 = new QPushButton(gridLayoutWidget);
-        action4->setObjectName("action4");
-
-        gridLayout->addWidget(action4, 4, 1, 1, 1);
-
-        action1 = new QPushButton(gridLayoutWidget);
-        action1->setObjectName("action1");
-
-        gridLayout->addWidget(action1, 3, 0, 1, 1);
+        gridLayout->addWidget(actionWRISTLEFTANDRIGHT, 4, 0, 1, 1);
 
         modeCamera = new QPushButton(gridLayoutWidget);
         modeCamera->setObjectName("modeCamera");
 
         gridLayout->addWidget(modeCamera, 9, 0, 1, 1);
 
-        action5 = new QPushButton(gridLayoutWidget);
-        action5->setObjectName("action5");
+        actionRESUME = new QPushButton(gridLayoutWidget);
+        actionRESUME->setObjectName("actionRESUME");
 
-        gridLayout->addWidget(action5, 5, 0, 1, 1);
+        gridLayout->addWidget(actionRESUME, 7, 1, 1, 1);
 
         openButton = new QPushButton(gridLayoutWidget);
         openButton->setObjectName("openButton");
@@ -267,9 +239,49 @@ public:
 
         gridLayout->addWidget(modeRock, 11, 0, 1, 1);
 
+        baudrateLabel = new QLabel(gridLayoutWidget);
+        baudrateLabel->setObjectName("baudrateLabel");
+
+        gridLayout->addWidget(baudrateLabel, 1, 0, 1, 1);
+
+        serialLabel = new QLabel(gridLayoutWidget);
+        serialLabel->setObjectName("serialLabel");
+
+        gridLayout->addWidget(serialLabel, 0, 0, 1, 1);
+
+        serialBox = new QComboBox(gridLayoutWidget);
+        serialBox->setObjectName("serialBox");
+
+        gridLayout->addWidget(serialBox, 0, 1, 1, 1);
+
+        actionYEAH = new QPushButton(gridLayoutWidget);
+        actionYEAH->setObjectName("actionYEAH");
+
+        gridLayout->addWidget(actionYEAH, 3, 1, 1, 1);
+
+        actionSWING = new QPushButton(gridLayoutWidget);
+        actionSWING->setObjectName("actionSWING");
+
+        gridLayout->addWidget(actionSWING, 5, 0, 1, 1);
+
+        actionWIDEANDSHRINK = new QPushButton(gridLayoutWidget);
+        actionWIDEANDSHRINK->setObjectName("actionWIDEANDSHRINK");
+
+        gridLayout->addWidget(actionWIDEANDSHRINK, 5, 1, 1, 1);
+
+        actionPOINTFINGER = new QPushButton(gridLayoutWidget);
+        actionPOINTFINGER->setObjectName("actionPOINTFINGER");
+
+        gridLayout->addWidget(actionPOINTFINGER, 6, 0, 1, 1);
+
+        modeObject = new QPushButton(gridLayoutWidget);
+        modeObject->setObjectName("modeObject");
+
+        gridLayout->addWidget(modeObject, 12, 0, 1, 1);
+
         gridLayoutWidget_2 = new QWidget(Widget);
         gridLayoutWidget_2->setObjectName("gridLayoutWidget_2");
-        gridLayoutWidget_2->setGeometry(QRect(350, 10, 651, 38));
+        gridLayoutWidget_2->setGeometry(QRect(360, 10, 641, 41));
         gridLayout_2 = new QGridLayout(gridLayoutWidget_2);
         gridLayout_2->setObjectName("gridLayout_2");
         gridLayout_2->setContentsMargins(0, 0, 0, 0);
@@ -300,7 +312,7 @@ public:
 
         verticalLayoutWidget = new QWidget(Widget);
         verticalLayoutWidget->setObjectName("verticalLayoutWidget");
-        verticalLayoutWidget->setGeometry(QRect(350, 50, 261, 481));
+        verticalLayoutWidget->setGeometry(QRect(360, 60, 261, 481));
         verticalLayout = new QVBoxLayout(verticalLayoutWidget);
         verticalLayout->setObjectName("verticalLayout");
         verticalLayout->setContentsMargins(0, 0, 0, 0);
@@ -414,7 +426,7 @@ public:
 
         verticalLayoutWidget_2 = new QWidget(Widget);
         verticalLayoutWidget_2->setObjectName("verticalLayoutWidget_2");
-        verticalLayoutWidget_2->setGeometry(QRect(610, 50, 51, 481));
+        verticalLayoutWidget_2->setGeometry(QRect(620, 60, 51, 481));
         verticalLayout_2 = new QVBoxLayout(verticalLayoutWidget_2);
         verticalLayout_2->setObjectName("verticalLayout_2");
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);
@@ -465,7 +477,7 @@ public:
 
         verticalLayoutWidget_3 = new QWidget(Widget);
         verticalLayoutWidget_3->setObjectName("verticalLayoutWidget_3");
-        verticalLayoutWidget_3->setGeometry(QRect(680, 40, 271, 481));
+        verticalLayoutWidget_3->setGeometry(QRect(680, 60, 271, 481));
         verticalLayout_3 = new QVBoxLayout(verticalLayoutWidget_3);
         verticalLayout_3->setObjectName("verticalLayout_3");
         verticalLayout_3->setContentsMargins(0, 0, 0, 0);
@@ -579,7 +591,7 @@ public:
 
         verticalLayoutWidget_4 = new QWidget(Widget);
         verticalLayoutWidget_4->setObjectName("verticalLayoutWidget_4");
-        verticalLayoutWidget_4->setGeometry(QRect(950, 40, 51, 481));
+        verticalLayoutWidget_4->setGeometry(QRect(950, 60, 51, 481));
         verticalLayout_4 = new QVBoxLayout(verticalLayoutWidget_4);
         verticalLayout_4->setObjectName("verticalLayout_4");
         verticalLayout_4->setContentsMargins(0, 0, 0, 0);
@@ -630,7 +642,7 @@ public:
 
         verticalLayoutWidget_5 = new QWidget(Widget);
         verticalLayoutWidget_5->setObjectName("verticalLayoutWidget_5");
-        verticalLayoutWidget_5->setGeometry(QRect(20, 10, 271, 31));
+        verticalLayoutWidget_5->setGeometry(QRect(20, 10, 311, 41));
         verticalLayout_5 = new QVBoxLayout(verticalLayoutWidget_5);
         verticalLayout_5->setObjectName("verticalLayout_5");
         verticalLayout_5->setContentsMargins(0, 0, 0, 0);
@@ -641,7 +653,7 @@ public:
 
         horizontalLayoutWidget = new QWidget(Widget);
         horizontalLayoutWidget->setObjectName("horizontalLayoutWidget");
-        horizontalLayoutWidget->setGeometry(QRect(350, 570, 651, 31));
+        horizontalLayoutWidget->setGeometry(QRect(360, 590, 641, 31));
         horizontalLayout = new QHBoxLayout(horizontalLayoutWidget);
         horizontalLayout->setObjectName("horizontalLayout");
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
@@ -677,7 +689,7 @@ public:
 
         horizontalLayoutWidget_2 = new QWidget(Widget);
         horizontalLayoutWidget_2->setObjectName("horizontalLayoutWidget_2");
-        horizontalLayoutWidget_2->setGeometry(QRect(350, 540, 651, 31));
+        horizontalLayoutWidget_2->setGeometry(QRect(360, 560, 641, 31));
         horizontalLayout_2 = new QHBoxLayout(horizontalLayoutWidget_2);
         horizontalLayout_2->setObjectName("horizontalLayout_2");
         horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
@@ -720,30 +732,32 @@ public:
     void retranslateUi(QWidget *Widget)
     {
         Widget->setWindowTitle(QCoreApplication::translate("Widget", "Widget", nullptr));
-        action6->setText(QCoreApplication::translate("Widget", "\345\212\250\344\275\2346", nullptr));
+        modeWire->setText(QCoreApplication::translate("Widget", "\346\234\211\347\272\277\346\250\241\345\274\217", nullptr));
+        actionOK->setText(QCoreApplication::translate("Widget", "OK", nullptr));
+        modeGolve->setText(QCoreApplication::translate("Widget", "\346\225\260\346\215\256\346\211\213\345\245\227\346\250\241\345\274\217", nullptr));
+        modeWireless->setText(QCoreApplication::translate("Widget", "\346\227\240\347\272\277\346\250\241\345\274\217", nullptr));
+        modePiano->setText(QCoreApplication::translate("Widget", "\345\274\271\347\220\264", nullptr));
         baudrateBox->setItemText(0, QCoreApplication::translate("Widget", "115200", nullptr));
         baudrateBox->setItemText(1, QCoreApplication::translate("Widget", "921600", nullptr));
 
-        closeButton->setText(QCoreApplication::translate("Widget", "\345\205\263\351\227\255\344\270\262\345\217\243", nullptr));
-        modeGolve->setText(QCoreApplication::translate("Widget", "\346\225\260\346\215\256\346\211\213\345\245\227\346\250\241\345\274\217", nullptr));
+        actionACTION33->setText(QCoreApplication::translate("Widget", "33\347\247\215\345\212\250\344\275\234", nullptr));
         golveAdjustButton->setText(QCoreApplication::translate("Widget", "\346\240\241\345\207\206\346\225\260\346\215\256\346\211\213\345\245\227", nullptr));
         modeEveryAction->setText(QCoreApplication::translate("Widget", "\347\224\250\346\210\267\345\256\232\344\271\211\345\212\250\344\275\234\346\250\241\345\274\217", nullptr));
-        action8->setText(QCoreApplication::translate("Widget", "\345\212\250\344\275\2348", nullptr));
-        action2->setText(QCoreApplication::translate("Widget", "\345\212\250\344\275\2342", nullptr));
-        resume->setText(QCoreApplication::translate("Widget", "\345\244\215\344\275\215", nullptr));
-        action7->setText(QCoreApplication::translate("Widget", "\345\212\250\344\275\2347", nullptr));
-        modeWire->setText(QCoreApplication::translate("Widget", "\346\234\211\347\272\277\346\250\241\345\274\217", nullptr));
-        serialLabel->setText(QCoreApplication::translate("Widget", "\344\270\262\345\217\243", nullptr));
-        action3->setText(QCoreApplication::translate("Widget", "\345\212\250\344\275\2343", nullptr));
-        action9->setText(QCoreApplication::translate("Widget", "\345\212\250\344\275\2349", nullptr));
-        baudrateLabel->setText(QCoreApplication::translate("Widget", "\346\263\242\347\211\271\347\216\207", nullptr));
-        modeWireless->setText(QCoreApplication::translate("Widget", "\346\227\240\347\272\277\346\250\241\345\274\217", nullptr));
-        action4->setText(QCoreApplication::translate("Widget", "\345\212\250\344\275\2344", nullptr));
-        action1->setText(QCoreApplication::translate("Widget", "\345\212\250\344\275\2341", nullptr));
+        actionBACKMOVE->setText(QCoreApplication::translate("Widget", "\345\217\215\345\220\221\351\251\261\345\212\250", nullptr));
+        actionWRISTFRONTANDBACK->setText(QCoreApplication::translate("Widget", "\346\211\213\350\205\225\345\211\215\345\220\216", nullptr));
+        closeButton->setText(QCoreApplication::translate("Widget", "\345\205\263\351\227\255\344\270\262\345\217\243", nullptr));
+        actionWRISTLEFTANDRIGHT->setText(QCoreApplication::translate("Widget", "\346\211\213\350\205\225\345\267\246\345\217\263", nullptr));
         modeCamera->setText(QCoreApplication::translate("Widget", "\345\233\276\345\203\217\350\257\206\345\210\253\346\250\241\345\274\217", nullptr));
-        action5->setText(QCoreApplication::translate("Widget", "\345\212\250\344\275\2345", nullptr));
+        actionRESUME->setText(QCoreApplication::translate("Widget", "\345\244\215\344\275\215", nullptr));
         openButton->setText(QCoreApplication::translate("Widget", "\346\211\223\345\274\200\344\270\262\345\217\243", nullptr));
         modeRock->setText(QCoreApplication::translate("Widget", "\347\214\234\346\213\263", nullptr));
+        baudrateLabel->setText(QCoreApplication::translate("Widget", "\346\263\242\347\211\271\347\216\207", nullptr));
+        serialLabel->setText(QCoreApplication::translate("Widget", "\344\270\262\345\217\243", nullptr));
+        actionYEAH->setText(QCoreApplication::translate("Widget", "\350\200\266", nullptr));
+        actionSWING->setText(QCoreApplication::translate("Widget", "\346\211\213\346\214\207SWING", nullptr));
+        actionWIDEANDSHRINK->setText(QCoreApplication::translate("Widget", "\346\211\213\346\214\207\345\274\200\345\220\210", nullptr));
+        actionPOINTFINGER->setText(QCoreApplication::translate("Widget", "\345\257\271\346\214\207", nullptr));
+        modeObject->setText(QCoreApplication::translate("Widget", "\347\211\251\345\223\201\345\210\206\347\261\273", nullptr));
         actButton->setText(QCoreApplication::translate("Widget", "\346\211\247\350\241\214\345\212\250\344\275\234", nullptr));
         addActionButton->setText(QCoreApplication::translate("Widget", "\346\267\273\345\212\240\345\212\250\344\275\234", nullptr));
         deleteActionButton->setText(QCoreApplication::translate("Widget", "\345\210\240\351\231\244\345\212\250\344\275\234", nullptr));

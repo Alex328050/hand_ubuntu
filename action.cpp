@@ -12,7 +12,7 @@ QVector<QVector<uint16_t>> allAction;
 
 void Widget::on_actionSlider1_valueChanged(int value)
 {
-    if (mode == 5) handData[0] = value;
+    if (mode == USER_ACTION) handData[0] = value;
     allLabel[0]->clear();
     allLabel[0]->setNum(value);
 }
@@ -20,7 +20,7 @@ void Widget::on_actionSlider1_valueChanged(int value)
 
 void Widget::on_actionSlider2_valueChanged(int value)
 {
-    if (mode == 5) handData[1] = value;
+    if (mode == USER_ACTION) handData[1] = value;
     allLabel[1]->clear();
     allLabel[1]->setNum(value);
 }
@@ -28,7 +28,7 @@ void Widget::on_actionSlider2_valueChanged(int value)
 
 void Widget::on_actionSlider3_valueChanged(int value)
 {
-    if (mode == 5) handData[2] = value;
+    if (mode == USER_ACTION) handData[2] = value;
     allLabel[2]->clear();
     allLabel[2]->setNum(value);
 }
@@ -36,7 +36,7 @@ void Widget::on_actionSlider3_valueChanged(int value)
 
 void Widget::on_actionSlider4_valueChanged(int value)
 {
-    if (mode == 5) handData[3] = value;
+    if (mode == USER_ACTION) handData[3] = value;
     allLabel[3]->clear();
     allLabel[3]->setNum(value);
 }
@@ -44,7 +44,7 @@ void Widget::on_actionSlider4_valueChanged(int value)
 
 void Widget::on_actionSlider5_valueChanged(int value)
 {
-    if (mode == 5) handData[4] = value;
+    if (mode == USER_ACTION) handData[4] = value;
     allLabel[4]->clear();
     allLabel[4]->setNum(value);
 }
@@ -52,7 +52,7 @@ void Widget::on_actionSlider5_valueChanged(int value)
 
 void Widget::on_actionSlider6_valueChanged(int value)
 {
-    if (mode == 5) handData[5] = value;
+    if (mode == USER_ACTION) handData[5] = value;
     allLabel[5]->clear();
     allLabel[5]->setNum(value);
 }
@@ -60,7 +60,7 @@ void Widget::on_actionSlider6_valueChanged(int value)
 
 void Widget::on_actionSlider7_valueChanged(int value)
 {
-    if (mode == 5) handData[6] = value;
+    if (mode == USER_ACTION) handData[6] = value;
     allLabel[6]->clear();
     allLabel[6]->setNum(value);
 }
@@ -68,7 +68,7 @@ void Widget::on_actionSlider7_valueChanged(int value)
 
 void Widget::on_actionSlider8_valueChanged(int value)
 {
-    if (mode == 5) handData[7] = value;
+    if (mode == USER_ACTION) handData[7] = value;
     allLabel[7]->clear();
     allLabel[7]->setNum(value);
 }
@@ -76,7 +76,7 @@ void Widget::on_actionSlider8_valueChanged(int value)
 
 void Widget::on_actionSlider9_valueChanged(int value)
 {
-    if (mode == 5) handData[8] = value;
+    if (mode == USER_ACTION) handData[8] = value;
     allLabel[8]->clear();
     allLabel[8]->setNum(value);
 }
@@ -84,7 +84,7 @@ void Widget::on_actionSlider9_valueChanged(int value)
 
 void Widget::on_actionSlider10_valueChanged(int value)
 {
-    if (mode == 5) handData[9] = value;
+    if (mode == USER_ACTION) handData[9] = value;
     allLabel[9]->clear();
     allLabel[9]->setNum(value);
 }
@@ -92,7 +92,7 @@ void Widget::on_actionSlider10_valueChanged(int value)
 
 void Widget::on_actionSlider11_valueChanged(int value)
 {
-    if (mode == 5) handData[10] = value;
+    if (mode == USER_ACTION) handData[10] = value;
     allLabel[10]->clear();
     allLabel[10]->setNum(value);
 }
@@ -100,7 +100,7 @@ void Widget::on_actionSlider11_valueChanged(int value)
 
 void Widget::on_actionSlider12_valueChanged(int value)
 {
-    if (mode == 5) handData[11] = value;
+    if (mode == USER_ACTION) handData[11] = value;
     allLabel[11]->clear();
     allLabel[11]->setNum(value);
 }
@@ -108,7 +108,7 @@ void Widget::on_actionSlider12_valueChanged(int value)
 
 void Widget::on_actionSlider13_valueChanged(int value)
 {
-    if (mode == 5) handData[12] = value;
+    if (mode == USER_ACTION) handData[12] = value;
     allLabel[12]->clear();
     allLabel[12]->setNum(value);
 }
@@ -116,7 +116,7 @@ void Widget::on_actionSlider13_valueChanged(int value)
 
 void Widget::on_actionSlider14_valueChanged(int value)
 {
-    if (mode == 5) handData[13] = value;
+    if (mode == USER_ACTION) handData[13] = value;
     allLabel[13]->clear();
     allLabel[13]->setNum(value);
 }
@@ -124,7 +124,7 @@ void Widget::on_actionSlider14_valueChanged(int value)
 
 void Widget::on_actionSlider15_valueChanged(int value)
 {
-    if (mode == 5) handData[14] = value;
+    if (mode == USER_ACTION) handData[14] = value;
     allLabel[14]->clear();
     allLabel[14]->setNum(value);
 }
@@ -132,7 +132,7 @@ void Widget::on_actionSlider15_valueChanged(int value)
 
 void Widget::on_actionSlider16_valueChanged(int value)
 {
-    if (mode == 5) handData[15] = value;
+    if (mode == USER_ACTION) handData[15] = value;
     allLabel[15]->clear();
     allLabel[15]->setNum(value);
 }
@@ -140,7 +140,7 @@ void Widget::on_actionSlider16_valueChanged(int value)
 
 void Widget::on_actionSlider17_valueChanged(int value)
 {
-    if (mode == 5) handData[16] = value;
+    if (mode == USER_ACTION) handData[16] = value;
     allLabel[16]->clear();
     allLabel[16]->setNum(value);
 }
@@ -155,7 +155,8 @@ void Widget::on_actionSlider18_valueChanged(int value)
 
 void Widget::on_modeEveryAction_clicked()
 {
-    mode = 5;
+    action = NOACTION;
+    mode = USER_ACTION;
     ui->modeLabel->clear();
     ui->modeLabel->setText(QString("当前模式：用户自定义动作模式"));
     for (int i = 0; i < 17; ++i) handData[i] = allSlider[i]->value();
@@ -163,7 +164,7 @@ void Widget::on_modeEveryAction_clicked()
 
 void Widget::on_addActionButton_clicked()
 {
-    if (mode == 5)
+    if (mode == USER_ACTION)
     {
         QVector<uint16_t> temp;
         for (int i = 0; i < 17; ++i) temp.push_back(handData[i]);
@@ -172,8 +173,12 @@ void Widget::on_addActionButton_clicked()
         std::ofstream myfile;
         myfile.open("action.txt", std::ios::app);
         myfile << "{";
-        for (uint8_t i = 0; i < 16; ++i) myfile << temp[i] << ", ";
-        myfile << temp[16] << "},\n";
+        for (uint8_t i = 0; i < 12; ++i) myfile << "ID" << std::to_string(i+1) << "MAX-" << handMax[i] - temp[i] << ", ";
+        myfile << "Servo1Start-(" << Servo1Start - temp[12] << "), ";
+        myfile << "Servo2Start-(" << Servo2Start - temp[13] << "), ";
+        myfile << "Servo3Start-(" << Servo3Start - temp[14] << "), ";
+        myfile << "Servo4Start-(" << Servo4Start - temp[15] << "), ";
+        myfile << "Servo5Start-(" << Servo5Start - temp[16] << ")},\n";
         myfile.close();
 
         QString str;
@@ -192,7 +197,7 @@ void Widget::on_addActionButton_clicked()
 
 void Widget::on_deleteActionButton_clicked()
 {
-    if (mode == 5)
+    if (mode == USER_ACTION)
     {
         int index = ui->actionBox->currentIndex();
         ui->actionBox->removeItem(index);
@@ -203,7 +208,7 @@ void Widget::on_deleteActionButton_clicked()
 
 void Widget::on_actButton_clicked()
 {
-    if (mode == 5)
+    if (mode == USER_ACTION)
     {
         if (ui->actionBox->count() != 0)
         {
