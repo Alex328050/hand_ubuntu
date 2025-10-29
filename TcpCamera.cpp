@@ -9,22 +9,22 @@
 
 void Widget::on_modeCamera_clicked()
 {
+    myTimerTcpReceive->start(10);
     mode = CAMERA;
     ui->modeLabel->clear();
     ui->modeLabel->setText(QString("当前模式：图像识别模式"));
     action = NOACTION;
-    system("bash -c 'cd ./handpose && source ./.venv/bin/activate && python ./dexhand-ble.py'");
-    myTimerTcpReceive->start(10);
+    system("bash -c 'cd ./handpose && source ./.venv/bin/activate && python ./dexhand-ble.py' &");
 }
 
 void Widget::on_modeRock_clicked()
 {
+    myTimerTcpReceive->start(10);
     mode = ROCK;
     ui->modeLabel->clear();
     ui->modeLabel->setText(QString("当前模式：猜拳模式"));
     action = NOACTION;
-    system("bash -c 'cd ./handpose && source ./.venv/bin/activate && python ./dexhand-ble.py'");
-    myTimerTcpReceive->start(10);
+    system("bash -c 'cd ./handpose && source ./.venv/bin/activate && python ./dexhand-ble.py' &");
 }
 
 void Widget::tcpReceive()
@@ -64,7 +64,7 @@ void Widget::tcpReceive()
                 if (sortAngle[i] > 90) sortAngle[i] = 90;
             }
             if (sortAngle[1] > 45) sortAngle[1] = 45;
-            //qDebug() << sortAngle;
+            qDebug() << sortAngle;
             for (int i = 0; i < 10; ++i)
             {
                 handData[i] = static_cast<int>(handMax[i] - (sortAngle[i]/90) * (handMax[i]-handMin[i]));

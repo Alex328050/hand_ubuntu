@@ -832,7 +832,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../Qt/6.9.2/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../../myInferior.h ../../widget.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../TcpCamera.cpp ../../TcpUR5.cpp ../../UdpGolve.cpp ../../action.cpp ../../main.cpp ../../myInferior.cpp ../../widget.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../TcpCamera.cpp ../../TcpUR5.cpp ../../UdpGolve.cpp ../../action.cpp ../../handData.cpp ../../main.cpp ../../myInferior.cpp ../../widget.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../../widget.ui $(DISTDIR)/
 
 
@@ -1375,18 +1375,16 @@ TcpCamera.o: ../../TcpCamera.cpp ../../widget.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qlayout.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qlayoutitem.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/QHBoxLayout \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/QPushButton \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qpushbutton.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qabstractbutton.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/QVBoxLayout
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TcpCamera.o ../../TcpCamera.cpp
 
-TcpUR5.o: ../../TcpUR5.cpp ../../widget.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/QWidget \
-		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qwidget.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtGui/qtguiglobal.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qglobal.h \
+TcpUR5.o: ../../TcpUR5.cpp ../../../../Qt/6.9.2/gcc_64/include/QtNetwork/QTcpSocket \
+		../../../../Qt/6.9.2/gcc_64/include/QtNetwork/qtcpsocket.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtNetwork/qtnetworkglobal.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qtcoreglobal.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qtversionchecks.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qtconfiginclude.h \
@@ -1400,6 +1398,13 @@ TcpUR5.o: ../../TcpUR5.cpp ../../widget.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qtcoreexports.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qtdeprecationmarkers.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qtclasshelpermacros.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtNetwork/qtnetworkexports.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtNetwork/qabstractsocket.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtNetwork/qhostaddress.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qstring.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qchar.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qglobal.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qtpreprocessorsupport.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qassert.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qtnoop.h \
@@ -1432,26 +1437,15 @@ TcpUR5.o: ../../TcpUR5.cpp ../../widget.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qtresource.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qttranslation.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qversiontagging.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtGui/qtgui-config.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtGui/qtguiexports.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qtwidgets-config.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qtwidgetsexports.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtGui/qwindowdefs.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qobjectdefs.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qnamespace.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qcompare.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qstdlibdetection.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qcomparehelpers.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/q20type_traits.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qtmetamacros.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qobjectdefs_impl.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qfunctionaltools_impl.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qobject.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qstring.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qchar.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qstringview.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qbytearray.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qrefcount.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qnamespace.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qtmetamacros.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qarraydata.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qpair.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qarraydatapointer.h \
@@ -1473,8 +1467,15 @@ TcpUR5.o: ../../TcpUR5.cpp ../../widget.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qstringbuilder.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qstringconverter.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qstringconverter_base.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qlist.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qshareddata.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qiodevice.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qiodevicebase.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qobject.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qfunctionaltools_impl.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qlist.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qiterator.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qbytearraylist.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qstringlist.h \
@@ -1489,7 +1490,6 @@ TcpUR5.o: ../../TcpUR5.cpp ../../widget.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qmetatype.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qdatastream.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qscopedpointer.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qiodevicebase.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qfloat16.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qmath.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qtformat_impl.h \
@@ -1500,29 +1500,8 @@ TcpUR5.o: ../../TcpUR5.cpp ../../widget.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qscopeguard.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qobject_impl.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qbindingstorage.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qmargins.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/q23utility.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/q20utility.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtGui/qaction.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtGui/qkeysequence.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtGui/qicon.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qsize.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtGui/qpixmap.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtGui/qpaintdevice.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qrect.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qpoint.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtGui/qcolor.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtGui/qrgb.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtGui/qrgba64.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qshareddata.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtGui/qimage.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtGui/qpixelformat.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtGui/qtransform.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtGui/qpolygon.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtGui/qregion.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qspan.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/q20iterator.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qline.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qvariant.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qdebug.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qtextstream.h \
@@ -1534,6 +1513,62 @@ TcpUR5.o: ../../TcpUR5.cpp ../../widget.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qset.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qhash.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/q23utility.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/q20utility.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/QTimer \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qtimer.h \
+		ui_widget.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/QVariant \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/QApplication \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qapplication.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtGui/qtguiglobal.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtGui/qtgui-config.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtGui/qtguiexports.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qtwidgetsexports.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qnativeinterface.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qcoreapplication_platform.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qfuture.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qfutureinterface.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qmutex.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qtsan_impl.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qresultstore.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qfuture_impl.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qthreadpool.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qthread.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qrunnable.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qexception.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qpromise.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qpoint.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qsize.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qmargins.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtGui/qcursor.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtGui/qbitmap.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtGui/qpixmap.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qrect.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtGui/qcolor.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtGui/qrgb.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtGui/qrgba64.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtGui/qimage.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtGui/qpixelformat.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtGui/qtransform.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtGui/qpolygon.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtGui/qregion.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qline.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtGui/qguiapplication.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtGui/qinputmethod.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qlocale.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtGui/qguiapplication_platform.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/QComboBox \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qcombobox.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qwidget.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtGui/qaction.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtGui/qkeysequence.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtGui/qicon.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtGui/qpalette.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtGui/qbrush.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtGui/qfont.h \
@@ -1542,10 +1577,7 @@ TcpUR5.o: ../../TcpUR5.cpp ../../widget.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtGui/qfontinfo.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtGui/qfontvariableaxis.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qsizepolicy.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtGui/qcursor.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtGui/qbitmap.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtGui/qevent.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qiodevice.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qurl.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtGui/qeventpoint.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtGui/qvector2d.h \
@@ -1559,25 +1591,37 @@ TcpUR5.o: ../../TcpUR5.cpp ../../widget.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/QSize \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/QSizeF \
 		../../../../Qt/6.9.2/gcc_64/include/QtGui/QTransform \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qnativeinterface.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtGui/qscreen_platform.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtGui/qguiapplication.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qcoreapplication.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qcoreapplication_platform.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qfuture.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qfutureinterface.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qmutex.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qtsan_impl.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qresultstore.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qfuture_impl.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qthreadpool.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qthread.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qrunnable.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qexception.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qpromise.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtGui/qinputmethod.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qlocale.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtGui/qguiapplication_platform.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qstyleoption.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtGui/qvalidator.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qregularexpression.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qslider.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qabstractslider.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qstyle.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qtabbar.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qtabwidget.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qframe.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/QGridLayout \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qgridlayout.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qlayout.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/QHBoxLayout \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/QLabel \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qlabel.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtGui/qpicture.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtGui/qtextdocument.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/QPushButton \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/QSlider \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/QVBoxLayout \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/QWidget \
+		../../widget.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtSerialPort/QSerialPort \
 		../../../../Qt/6.9.2/gcc_64/include/QtSerialPort/qserialport.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/qproperty.h \
@@ -1586,23 +1630,8 @@ TcpUR5.o: ../../TcpUR5.cpp ../../widget.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtSerialPort/qtserialportexports.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtSerialPort/QSerialPortInfo \
 		../../../../Qt/6.9.2/gcc_64/include/QtSerialPort/qserialportinfo.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtNetwork/QTcpSocket \
-		../../../../Qt/6.9.2/gcc_64/include/QtNetwork/qtcpsocket.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtNetwork/qtnetworkglobal.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtNetwork/qtnetwork-config.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtNetwork/qtnetworkexports.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtNetwork/qabstractsocket.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtNetwork/qhostaddress.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtNetwork/QUdpSocket \
-		../../../../Qt/6.9.2/gcc_64/include/QtNetwork/qudpsocket.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/QSlider \
-		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qslider.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qabstractslider.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/QLabel \
-		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qlabel.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qframe.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtGui/qpicture.h \
-		../../../../Qt/6.9.2/gcc_64/include/QtGui/qtextdocument.h
+		../../../../Qt/6.9.2/gcc_64/include/QtNetwork/qudpsocket.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TcpUR5.o ../../TcpUR5.cpp
 
 UdpGolve.o: ../../UdpGolve.cpp ../../widget.h \
@@ -1849,6 +1878,7 @@ UdpGolve.o: ../../UdpGolve.cpp ../../widget.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qlayout.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qlayoutitem.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/QHBoxLayout \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/QPushButton \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qpushbutton.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qabstractbutton.h \
@@ -2105,6 +2135,7 @@ action.o: ../../action.cpp ../../widget.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qlayout.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qlayoutitem.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/QHBoxLayout \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/QPushButton \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qpushbutton.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qabstractbutton.h \
@@ -2361,6 +2392,7 @@ main.o: ../../main.cpp ../../widget.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qlayout.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qlayoutitem.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/QHBoxLayout \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/QPushButton \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qpushbutton.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qabstractbutton.h \
@@ -2611,6 +2643,7 @@ myInferior.o: ../../myInferior.cpp ../../myInferior.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qlayout.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qlayoutitem.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/QHBoxLayout \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/QPushButton \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qpushbutton.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qabstractbutton.h \
@@ -2860,6 +2893,7 @@ widget.o: ../../widget.cpp ../../widget.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qlayout.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qlayoutitem.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/QHBoxLayout \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/QPushButton \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qpushbutton.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtWidgets/qabstractbutton.h \
@@ -2884,7 +2918,8 @@ widget.o: ../../widget.cpp ../../widget.h \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/QJsonDocument \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/QJsonParseError \
 		../../../../Qt/6.9.2/gcc_64/include/QtCore/QJsonArray \
-		../../../../Qt/6.9.2/gcc_64/include/QtCore/qjsonarray.h
+		../../../../Qt/6.9.2/gcc_64/include/QtCore/qjsonarray.h \
+		../../handData.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o widget.o ../../widget.cpp
 
 moc_widget.o: moc_widget.cpp 

@@ -55,13 +55,6 @@ template <> constexpr inline auto Widget::qt_create_metaobjectdata<qt_meta_tag_Z
         "UR5Receive",
         "UR5Start",
         "ActionTimer",
-        "armMove",
-        "mx",
-        "my",
-        "mz",
-        "mrx",
-        "mry",
-        "mrz",
         "on_modeWire_clicked",
         "on_modeWireless_clicked",
         "on_modeCamera_clicked",
@@ -100,7 +93,9 @@ template <> constexpr inline auto Widget::qt_create_metaobjectdata<qt_meta_tag_Z
         "on_actionPOINTFINGER_clicked",
         "on_actionBACKMOVE_clicked",
         "on_actionACTION33_clicked",
-        "on_actionRESUME_clicked"
+        "on_actionRESUME_clicked",
+        "on_modePiano_clicked",
+        "on_modeObject_clicked"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -132,123 +127,122 @@ template <> constexpr inline auto Widget::qt_create_metaobjectdata<qt_meta_tag_Z
         QtMocHelpers::SlotData<void()>(14, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'ActionTimer'
         QtMocHelpers::SlotData<void()>(15, 2, QMC::AccessPrivate, QMetaType::Void),
-        // Slot 'armMove'
-        QtMocHelpers::SlotData<void(double, double, double, double, double, double)>(16, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Double, 17 }, { QMetaType::Double, 18 }, { QMetaType::Double, 19 }, { QMetaType::Double, 20 },
-            { QMetaType::Double, 21 }, { QMetaType::Double, 22 },
-        }}),
         // Slot 'on_modeWire_clicked'
-        QtMocHelpers::SlotData<void()>(23, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(16, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'on_modeWireless_clicked'
-        QtMocHelpers::SlotData<void()>(24, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(17, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'on_modeCamera_clicked'
-        QtMocHelpers::SlotData<void()>(25, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(18, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'on_modeRock_clicked'
-        QtMocHelpers::SlotData<void()>(26, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(19, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'on_modeGolve_clicked'
-        QtMocHelpers::SlotData<void()>(27, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(20, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'on_golveAdjustButton_clicked'
-        QtMocHelpers::SlotData<void()>(28, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(21, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'on_actionSlider1_valueChanged'
-        QtMocHelpers::SlotData<void(int)>(29, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Int, 30 },
+        QtMocHelpers::SlotData<void(int)>(22, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 23 },
         }}),
         // Slot 'on_actionSlider2_valueChanged'
-        QtMocHelpers::SlotData<void(int)>(31, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Int, 30 },
+        QtMocHelpers::SlotData<void(int)>(24, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 23 },
         }}),
         // Slot 'on_actionSlider3_valueChanged'
-        QtMocHelpers::SlotData<void(int)>(32, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Int, 30 },
+        QtMocHelpers::SlotData<void(int)>(25, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 23 },
         }}),
         // Slot 'on_actionSlider4_valueChanged'
-        QtMocHelpers::SlotData<void(int)>(33, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Int, 30 },
+        QtMocHelpers::SlotData<void(int)>(26, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 23 },
         }}),
         // Slot 'on_actionSlider5_valueChanged'
-        QtMocHelpers::SlotData<void(int)>(34, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Int, 30 },
+        QtMocHelpers::SlotData<void(int)>(27, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 23 },
         }}),
         // Slot 'on_actionSlider6_valueChanged'
-        QtMocHelpers::SlotData<void(int)>(35, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Int, 30 },
+        QtMocHelpers::SlotData<void(int)>(28, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 23 },
         }}),
         // Slot 'on_actionSlider7_valueChanged'
-        QtMocHelpers::SlotData<void(int)>(36, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Int, 30 },
+        QtMocHelpers::SlotData<void(int)>(29, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 23 },
         }}),
         // Slot 'on_actionSlider8_valueChanged'
-        QtMocHelpers::SlotData<void(int)>(37, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Int, 30 },
+        QtMocHelpers::SlotData<void(int)>(30, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 23 },
         }}),
         // Slot 'on_actionSlider9_valueChanged'
-        QtMocHelpers::SlotData<void(int)>(38, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Int, 30 },
+        QtMocHelpers::SlotData<void(int)>(31, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 23 },
         }}),
         // Slot 'on_actionSlider10_valueChanged'
-        QtMocHelpers::SlotData<void(int)>(39, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Int, 30 },
+        QtMocHelpers::SlotData<void(int)>(32, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 23 },
         }}),
         // Slot 'on_actionSlider11_valueChanged'
-        QtMocHelpers::SlotData<void(int)>(40, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Int, 30 },
+        QtMocHelpers::SlotData<void(int)>(33, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 23 },
         }}),
         // Slot 'on_actionSlider12_valueChanged'
-        QtMocHelpers::SlotData<void(int)>(41, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Int, 30 },
+        QtMocHelpers::SlotData<void(int)>(34, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 23 },
         }}),
         // Slot 'on_actionSlider13_valueChanged'
-        QtMocHelpers::SlotData<void(int)>(42, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Int, 30 },
+        QtMocHelpers::SlotData<void(int)>(35, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 23 },
         }}),
         // Slot 'on_actionSlider14_valueChanged'
-        QtMocHelpers::SlotData<void(int)>(43, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Int, 30 },
+        QtMocHelpers::SlotData<void(int)>(36, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 23 },
         }}),
         // Slot 'on_actionSlider15_valueChanged'
-        QtMocHelpers::SlotData<void(int)>(44, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Int, 30 },
+        QtMocHelpers::SlotData<void(int)>(37, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 23 },
         }}),
         // Slot 'on_actionSlider16_valueChanged'
-        QtMocHelpers::SlotData<void(int)>(45, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Int, 30 },
+        QtMocHelpers::SlotData<void(int)>(38, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 23 },
         }}),
         // Slot 'on_actionSlider17_valueChanged'
-        QtMocHelpers::SlotData<void(int)>(46, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Int, 30 },
+        QtMocHelpers::SlotData<void(int)>(39, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 23 },
         }}),
         // Slot 'on_actionSlider18_valueChanged'
-        QtMocHelpers::SlotData<void(int)>(47, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Int, 30 },
+        QtMocHelpers::SlotData<void(int)>(40, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 23 },
         }}),
         // Slot 'on_modeEveryAction_clicked'
-        QtMocHelpers::SlotData<void()>(48, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(41, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'on_addActionButton_clicked'
-        QtMocHelpers::SlotData<void()>(49, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(42, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'on_deleteActionButton_clicked'
-        QtMocHelpers::SlotData<void()>(50, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(43, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'on_actButton_clicked'
-        QtMocHelpers::SlotData<void()>(51, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(44, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'on_actionOK_clicked'
-        QtMocHelpers::SlotData<void()>(52, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(45, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'on_actionYEAH_clicked'
-        QtMocHelpers::SlotData<void()>(53, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(46, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'on_actionWRISTLEFTANDRIGHT_clicked'
-        QtMocHelpers::SlotData<void()>(54, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(47, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'on_actionWRISTFRONTANDBACK_clicked'
-        QtMocHelpers::SlotData<void()>(55, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(48, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'on_actionSWING_clicked'
-        QtMocHelpers::SlotData<void()>(56, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(49, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'on_actionWIDEANDSHRINK_clicked'
-        QtMocHelpers::SlotData<void()>(57, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(50, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'on_actionPOINTFINGER_clicked'
-        QtMocHelpers::SlotData<void()>(58, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(51, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'on_actionBACKMOVE_clicked'
-        QtMocHelpers::SlotData<void()>(59, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(52, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'on_actionACTION33_clicked'
-        QtMocHelpers::SlotData<void()>(60, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(53, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'on_actionRESUME_clicked'
-        QtMocHelpers::SlotData<void()>(61, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(54, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'on_modePiano_clicked'
+        QtMocHelpers::SlotData<void()>(55, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'on_modeObject_clicked'
+        QtMocHelpers::SlotData<void()>(56, 2, QMC::AccessPrivate, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -286,45 +280,46 @@ void Widget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         case 11: _t->UR5Receive(); break;
         case 12: _t->UR5Start(); break;
         case 13: _t->ActionTimer(); break;
-        case 14: _t->armMove((*reinterpret_cast< std::add_pointer_t<double>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[4])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[5])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[6]))); break;
-        case 15: _t->on_modeWire_clicked(); break;
-        case 16: _t->on_modeWireless_clicked(); break;
-        case 17: _t->on_modeCamera_clicked(); break;
-        case 18: _t->on_modeRock_clicked(); break;
-        case 19: _t->on_modeGolve_clicked(); break;
-        case 20: _t->on_golveAdjustButton_clicked(); break;
-        case 21: _t->on_actionSlider1_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 22: _t->on_actionSlider2_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 23: _t->on_actionSlider3_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 24: _t->on_actionSlider4_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 25: _t->on_actionSlider5_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 26: _t->on_actionSlider6_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 27: _t->on_actionSlider7_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 28: _t->on_actionSlider8_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 29: _t->on_actionSlider9_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 30: _t->on_actionSlider10_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 31: _t->on_actionSlider11_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 32: _t->on_actionSlider12_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 33: _t->on_actionSlider13_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 34: _t->on_actionSlider14_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 35: _t->on_actionSlider15_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 36: _t->on_actionSlider16_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 37: _t->on_actionSlider17_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 38: _t->on_actionSlider18_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 39: _t->on_modeEveryAction_clicked(); break;
-        case 40: _t->on_addActionButton_clicked(); break;
-        case 41: _t->on_deleteActionButton_clicked(); break;
-        case 42: _t->on_actButton_clicked(); break;
-        case 43: _t->on_actionOK_clicked(); break;
-        case 44: _t->on_actionYEAH_clicked(); break;
-        case 45: _t->on_actionWRISTLEFTANDRIGHT_clicked(); break;
-        case 46: _t->on_actionWRISTFRONTANDBACK_clicked(); break;
-        case 47: _t->on_actionSWING_clicked(); break;
-        case 48: _t->on_actionWIDEANDSHRINK_clicked(); break;
-        case 49: _t->on_actionPOINTFINGER_clicked(); break;
-        case 50: _t->on_actionBACKMOVE_clicked(); break;
-        case 51: _t->on_actionACTION33_clicked(); break;
-        case 52: _t->on_actionRESUME_clicked(); break;
+        case 14: _t->on_modeWire_clicked(); break;
+        case 15: _t->on_modeWireless_clicked(); break;
+        case 16: _t->on_modeCamera_clicked(); break;
+        case 17: _t->on_modeRock_clicked(); break;
+        case 18: _t->on_modeGolve_clicked(); break;
+        case 19: _t->on_golveAdjustButton_clicked(); break;
+        case 20: _t->on_actionSlider1_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 21: _t->on_actionSlider2_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 22: _t->on_actionSlider3_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 23: _t->on_actionSlider4_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 24: _t->on_actionSlider5_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 25: _t->on_actionSlider6_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 26: _t->on_actionSlider7_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 27: _t->on_actionSlider8_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 28: _t->on_actionSlider9_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 29: _t->on_actionSlider10_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 30: _t->on_actionSlider11_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 31: _t->on_actionSlider12_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 32: _t->on_actionSlider13_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 33: _t->on_actionSlider14_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 34: _t->on_actionSlider15_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 35: _t->on_actionSlider16_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 36: _t->on_actionSlider17_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 37: _t->on_actionSlider18_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 38: _t->on_modeEveryAction_clicked(); break;
+        case 39: _t->on_addActionButton_clicked(); break;
+        case 40: _t->on_deleteActionButton_clicked(); break;
+        case 41: _t->on_actButton_clicked(); break;
+        case 42: _t->on_actionOK_clicked(); break;
+        case 43: _t->on_actionYEAH_clicked(); break;
+        case 44: _t->on_actionWRISTLEFTANDRIGHT_clicked(); break;
+        case 45: _t->on_actionWRISTFRONTANDBACK_clicked(); break;
+        case 46: _t->on_actionSWING_clicked(); break;
+        case 47: _t->on_actionWIDEANDSHRINK_clicked(); break;
+        case 48: _t->on_actionPOINTFINGER_clicked(); break;
+        case 49: _t->on_actionBACKMOVE_clicked(); break;
+        case 50: _t->on_actionACTION33_clicked(); break;
+        case 51: _t->on_actionRESUME_clicked(); break;
+        case 52: _t->on_modePiano_clicked(); break;
+        case 53: _t->on_modeObject_clicked(); break;
         default: ;
         }
     }
@@ -349,14 +344,14 @@ int Widget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 53)
+        if (_id < 54)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 53;
+        _id -= 54;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 53)
+        if (_id < 54)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 53;
+        _id -= 54;
     }
     return _id;
 }

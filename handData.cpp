@@ -2,19 +2,32 @@
 #include "widget.h"
 
 uint8_t handData_index = 0;
-uint16_t myhandDataOK[17] = {ID1MAX-100, ID2MIN+150, ID3MAX-100, ID4MIN+150, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start};
-uint16_t myhandDataYEAH[17] = {ID1MAX-400, ID2MIN+100, ID3MAX-100, ID4MIN, ID5MAX-200, ID6MIN+50, ID7MAX-400, ID8MIN, ID9MAX-400, ID10MIN, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start};
-uint16_t myhandDataPOINTFINGER[4][17] =
+uint16_t myhandDataOK[17] = {ID1MAX-683, ID2MAX-235, ID3MAX-647, ID4MAX-693, ID5MAX-0, ID6MAX-0, ID7MAX-0, ID8MAX-0, ID9MAX-0, ID10MAX-0, wristStartPos-(0), wristStartPos-(0), Servo1Start-(47), Servo2Start-(0), Servo3Start-(0), Servo4Start-(0), Servo5Start-(0)};
+uint16_t myhandDataYEAH[17] = {ID1MAX-1045, ID2MAX-512, ID3MAX-0, ID4MAX-0, ID5MAX-0, ID6MAX-0, ID7MAX-1036, ID8MAX-881, ID9MAX-947, ID10MAX-782, wristStartPos-(0), wristStartPos-(0), Servo1Start-(59), Servo2Start-(-9), Servo3Start-(0), Servo4Start-(0), Servo5Start-(0)};
+uint16_t myhandDataPOINTFINGER[16][17] =
 {
-    {1224, 1110, 1110, 1282, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, 47, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
-    {1224, 1110, ID3MAX, ID4MAX, 1029, 980, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, 33, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
-    {1224, 1110, ID3MAX, ID4MAX, ID5MAX, ID6MAX, 1037, 980, ID9MAX, ID10MAX, wristStartPos, wristStartPos, 15, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
-    {1224, 1110, ID3MAX, ID4MAX, ID5MAX, ID6MAX, ID7MAX, ID8MAX, 531, 1176, wristStartPos, wristStartPos, 0, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
+    {ID1MAX, ID2MAX, ID3MAX, ID4MAX, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
+    {ID1MAX, ID2MAX, ID3MAX, ID4MAX, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
+    {ID1MAX-724, ID2MAX-701, ID3MAX-606, ID4MAX-620, ID5MAX-0, ID6MAX-0, ID7MAX-0, ID8MAX-0, ID9MAX-0, ID10MAX-0, wristStartPos-(0), wristStartPos-(0), Servo1Start-(0), Servo2Start-(0), Servo3Start-(0), Servo4Start-(0), Servo5Start-(0)},
+    {ID1MAX-724, ID2MAX-701, ID3MAX-606, ID4MAX-620, ID5MAX-0, ID6MAX-0, ID7MAX-0, ID8MAX-0, ID9MAX-0, ID10MAX-0, wristStartPos-(0), wristStartPos-(0), Servo1Start-(0), Servo2Start-(0), Servo3Start-(0), Servo4Start-(0), Servo5Start-(0)},
+    {ID1MAX-544, ID2MAX-606, ID3MAX-606, ID4MAX-620, ID5MAX-0, ID6MAX-0, ID7MAX-0, ID8MAX-0, ID9MAX-0, ID10MAX-0, wristStartPos-(0), wristStartPos-(0), Servo1Start-(15), Servo2Start-(0), Servo3Start-(0), Servo4Start-(0), Servo5Start-(0)},
+    {ID1MAX-544, ID2MAX-234, ID3MAX-606, ID4MAX-620, ID5MAX-0, ID6MAX-0, ID7MAX-0, ID8MAX-0, ID9MAX-0, ID10MAX-0, wristStartPos-(0), wristStartPos-(0), Servo1Start-(15), Servo2Start-(0), Servo3Start-(0), Servo4Start-(0), Servo5Start-(0)},
+    {ID1MAX-806, ID2MAX-234, ID3MAX-606, ID4MAX-620, ID5MAX-0, ID6MAX-0, ID7MAX-0, ID8MAX-0, ID9MAX-0, ID10MAX-0, wristStartPos-(0), wristStartPos-(0), Servo1Start-(46), Servo2Start-(0), Servo3Start-(0), Servo4Start-(0), Servo5Start-(0)},
+    {ID1MAX-806, ID2MAX-234, ID3MAX-606, ID4MAX-620, ID5MAX-0, ID6MAX-0, ID7MAX-0, ID8MAX-0, ID9MAX-0, ID10MAX-0, wristStartPos-(0), wristStartPos-(0), Servo1Start-(46), Servo2Start-(0), Servo3Start-(0), Servo4Start-(0), Servo5Start-(0)},
+    {ID1MAX-806, ID2MAX-234, ID3MAX-0, ID4MAX-0, ID5MAX-715, ID6MAX-798, ID7MAX-0, ID8MAX-0, ID9MAX-0, ID10MAX-0, wristStartPos-(0), wristStartPos-(0), Servo1Start-(64), Servo2Start-(0), Servo3Start-(0), Servo4Start-(0), Servo5Start-(0)},
+    {ID1MAX-806, ID2MAX-234, ID3MAX-0, ID4MAX-0, ID5MAX-715, ID6MAX-798, ID7MAX-0, ID8MAX-0, ID9MAX-0, ID10MAX-0, wristStartPos-(0), wristStartPos-(0), Servo1Start-(64), Servo2Start-(0), Servo3Start-(0), Servo4Start-(0), Servo5Start-(0)},
+    {ID1MAX-613, ID2MAX-291, ID3MAX-0, ID4MAX-0, ID5MAX-0, ID6MAX-0, ID7MAX-559, ID8MAX-881, ID9MAX-0, ID10MAX-0, wristStartPos-(0), wristStartPos-(0), Servo1Start-(83), Servo2Start-(0), Servo3Start-(0), Servo4Start-(0), Servo5Start-(0)},
+    {ID1MAX-613, ID2MAX-291, ID3MAX-0, ID4MAX-0, ID5MAX-0, ID6MAX-0, ID7MAX-559, ID8MAX-881, ID9MAX-0, ID10MAX-0, wristStartPos-(0), wristStartPos-(0), Servo1Start-(83), Servo2Start-(0), Servo3Start-(0), Servo4Start-(0), Servo5Start-(0)},
+    {ID1MAX-333, ID2MAX-398, ID3MAX-0, ID4MAX-0, ID5MAX-0, ID6MAX-0, ID7MAX-0, ID8MAX-0, ID9MAX-716, ID10MAX-628, wristStartPos-(0), wristStartPos-(0), Servo1Start-(96), Servo2Start-(0), Servo3Start-(0), Servo4Start-(0), Servo5Start-(0)},
+    {ID1MAX-333, ID2MAX-398, ID3MAX-0, ID4MAX-0, ID5MAX-0, ID6MAX-0, ID7MAX-0, ID8MAX-0, ID9MAX-716, ID10MAX-628, wristStartPos-(0), wristStartPos-(0), Servo1Start-(96), Servo2Start-(0), Servo3Start-(0), Servo4Start-(0), Servo5Start-(0)},
+    {ID1MAX-380, ID2MAX-650, ID3MAX-0, ID4MAX-0, ID5MAX-0, ID6MAX-0, ID7MAX-0, ID8MAX-0, ID9MAX-716, ID10MAX-628, wristStartPos-(0), wristStartPos-(0), Servo1Start-(100), Servo2Start-(0), Servo3Start-(0), Servo4Start-(0), Servo5Start-(0)},
+    {ID1MAX-380, ID2MAX-650, ID3MAX-0, ID4MAX-0, ID5MAX-0, ID6MAX-0, ID7MAX-0, ID8MAX-0, ID9MAX-716, ID10MAX-628, wristStartPos-(0), wristStartPos-(0), Servo1Start-(100), Servo2Start-(0), Servo3Start-(0), Servo4Start-(0), Servo5Start-(0)},
+
 };
 uint16_t myhandDataWIDEANDSHRINK[2][17] =
 {
-    {ID1MAX, ID2MAX, ID3MAX, ID4MAX, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, 120, 75, 49, 19},
-    {ID1MAX, 890, ID3MAX, ID4MAX, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, 59, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
+    {ID1MAX, ID2MAX, ID3MAX, ID4MAX, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start-(0), Servo2Start-(-14), Servo3Start-(0), Servo4Start-(14), Servo5Start-(27)},
+    {ID1MAX-462, ID2MAX-714, ID3MAX, ID4MAX, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
 };
 uint16_t myhandDataPRESS[2][17] =
 {
@@ -23,11 +36,11 @@ uint16_t myhandDataPRESS[2][17] =
 };
 uint16_t myhandDataSWING[10][17] =
 {
-    {ID1MIN+300, ID2MIN+250, ID3MAX, ID4MAX, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
-    {ID1MIN+300, ID2MIN+250, ID3MIN, ID4MIN, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
-    {ID1MIN+300, ID2MIN+250, ID3MIN, ID4MIN, ID5MIN, ID6MIN, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
-    {ID1MIN+300, ID2MIN+250, ID3MIN, ID4MIN, ID5MIN, ID6MIN, ID7MIN, ID8MIN, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
-    {ID1MIN+300, ID2MIN+250, ID3MIN, ID4MIN, ID5MIN, ID6MIN, ID7MIN, ID8MIN, ID9MIN, ID10MIN, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
+    {ID1MIN+300, ID2MIN+450, ID3MAX, ID4MAX, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
+    {ID1MIN+300, ID2MIN+450, ID3MIN, ID4MIN, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
+    {ID1MIN+300, ID2MIN+450, ID3MIN, ID4MIN, ID5MIN, ID6MIN, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
+    {ID1MIN+300, ID2MIN+450, ID3MIN, ID4MIN, ID5MIN, ID6MIN, ID7MIN, ID8MIN, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
+    {ID1MIN+300, ID2MIN+450, ID3MIN, ID4MIN, ID5MIN, ID6MIN, ID7MIN, ID8MIN, ID9MIN, ID10MIN, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
     {ID1MAX, ID2MAX, ID3MIN, ID4MIN, ID5MIN, ID6MIN, ID7MIN, ID8MIN, ID9MIN, ID10MIN, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
     {ID1MAX, ID2MAX, ID3MAX, ID4MAX, ID5MIN, ID6MIN, ID7MIN, ID8MIN, ID9MIN, ID10MIN, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
     {ID1MAX, ID2MAX, ID3MAX, ID4MAX, ID5MAX, ID6MAX, ID7MIN, ID8MIN, ID9MIN, ID10MIN, wristStartPos, wristStartPos, Servo1Start, Servo2Start, Servo3Start, Servo4Start, Servo5Start},
@@ -71,10 +84,21 @@ uint16_t myhandDataACTION33[33][17] =
     {1255, 1076, 1213, 1193, 867, 954, 514, 939, 155, 706, 800, 800, 52, 81, 66, 65, 48},
 };
 
-uint16_t myhandDataPiano[4][17] =
+uint16_t myhandDataPiano[8][17] =
 {
-    {ID1MAX, ID2MAX, ID3MAX-450, ID4MAX-350, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start+15, Servo3Start, Servo4Start, Servo5Start-15},
-    {ID1MAX, ID2MAX, ID3MAX-450, ID4MAX-350, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start+15, Servo3Start, Servo4Start, Servo5Start-15},
-    {ID1MAX, ID2MAX, ID3MAX-450, ID4MAX-350, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start+15, Servo3Start, Servo4Start, Servo5Start-15},
-    {ID1MAX, ID2MAX, ID3MAX, ID4MAX, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start+15, Servo3Start, Servo4Start, Servo5Start-15},
+    // {ID1MAX, ID2MAX, ID3MAX-450, ID4MAX-350, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start+6, Servo3Start, Servo4Start, Servo5Start-13},
+    // {ID1MAX, ID2MAX, ID3MAX, ID4MAX, ID5MAX, ID6MAX, ID7MAX-450, ID8MAX-350, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start+6, Servo3Start, Servo4Start, Servo5Start-13},
+    // {ID1MAX, ID2MAX, ID3MAX, ID4MAX, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX-450, ID10MAX-350, wristStartPos, wristStartPos, Servo1Start, Servo2Start+6, Servo3Start, Servo4Start, Servo5Start-13},
+    // {ID1MAX, ID2MAX, ID3MAX, ID4MAX, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start+6, Servo3Start, Servo4Start, Servo5Start-13},
+    {ID1MAX, ID2MAX, ID3MAX-450, ID4MAX-350, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start+9, Servo3Start, Servo4Start, Servo5Start-8},
+    {ID1MAX, ID2MAX, ID3MAX, ID4MAX, ID5MAX-450, ID6MAX-350, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start+9, Servo3Start, Servo4Start, Servo5Start-8},
+    {ID1MAX, ID2MAX, ID3MAX, ID4MAX, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX-450, ID10MAX-350, wristStartPos, wristStartPos, Servo1Start, Servo2Start+9, Servo3Start, Servo4Start, Servo5Start-8},
+    {ID1MAX, ID2MAX, ID3MAX, ID4MAX, ID5MAX, ID6MAX, ID7MAX, ID8MAX, ID9MAX, ID10MAX, wristStartPos, wristStartPos, Servo1Start, Servo2Start+9, Servo3Start, Servo4Start, Servo5Start-8},
+};
+
+uint16_t myhandDataScrew[3][17] =
+{
+    {ID1MAX-304, ID2MAX-427, ID3MAX-316, ID4MAX-860, ID5MAX-0, ID6MAX-0, ID7MAX-0, ID8MAX-0, ID9MAX-0, ID10MAX-0, wristStartPos-(0), wristStartPos-(0), Servo1Start-(49), Servo2Start-(-1), Servo3Start-(-2), Servo4Start-(-1), Servo5Start-(0)},
+    {ID1MAX-304, ID2MAX-670, ID3MAX-316, ID4MAX-860, ID5MAX-0, ID6MAX-0, ID7MAX-0, ID8MAX-0, ID9MAX-0, ID10MAX-0, wristStartPos-(0), wristStartPos-(0), Servo1Start-(49), Servo2Start-(-1), Servo3Start-(-2), Servo4Start-(-1), Servo5Start-(0)},
+    {ID1MAX-304, ID2MAX-670, ID3MAX-316, ID4MAX-860, ID5MAX-0, ID6MAX-0, ID7MAX-0, ID8MAX-0, ID9MAX-0, ID10MAX-0, wristStartPos-(0), wristStartPos-(0), Servo1Start-(41), Servo2Start-(-1), Servo3Start-(-2), Servo4Start-(-1), Servo5Start-(0)},
 };
