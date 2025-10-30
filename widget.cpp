@@ -57,11 +57,15 @@ Widget::Widget(QWidget *parent) :
     connect(myTimerTransmit, &QTimer::timeout, this, &Widget::serialTransmit);
     myTimerTransmit->start(5);
 
-    QTimer* myTimerAction = new QTimer(this);
+    myTimerAction = new QTimer(this);
     connect(myTimerAction, &QTimer::timeout, this, &Widget::ActionTimer);
 
     myTimerTcpReceive = new QTimer(this);
     connect(myTimerTcpReceive, &QTimer::timeout, this, &Widget::tcpStart);
+    tcpProcess = new QProcess(this);
+
+    myTimerUR5Receive = new QTimer(this);
+    connect(myTimerUR5Receive, &QTimer::timeout, this, &Widget::UR5Start);
 
     allSlider.push_back(ui->actionSlider1);
     allSlider.push_back(ui->actionSlider2);
@@ -265,6 +269,9 @@ void Widget::serialTransmit()
                     }
                     for (uint8_t i = 0; i < 10; ++i) if (handData[i] >= handMax[i]) handData[i] = handMax[i];
                     break;
+                case PIANOACTION:
+                    memcpy(handData, myhandDataScrew[handData_index], sizeof(handData));
+                    break;
                 default:
                     break;
                 }
@@ -298,9 +305,9 @@ void Widget::serialReceive()
             isInferiorReadyFlag = 1;
             ADCValue[0] = (uint8_t)receiveBuffer[4] / 255.0 * 15.0;
             ADCValue[1] = (uint8_t)receiveBuffer[5] / 255.0 * 15.0;
-            ADCValue[2] = (uint8_t)receiveBuffer[7] / 255.0 * 15.0;
-            ADCValue[3] = (uint8_t)receiveBuffer[8] / 255.0 * 15.0;
-            ADCValue[4] = (uint8_t)receiveBuffer[6] / 255.0 * 15.0;
+            ADCValue[2] = (uint8_t)receiveBuffer[6] / 255.0 * 15.0;
+            ADCValue[3] = (uint8_t)receiveBuffer[7] / 255.0 * 15.0;
+            ADCValue[4] = (uint8_t)receiveBuffer[8] / 255.0 * 15.0;
         }
     }
     else isInferiorReadyFlag = 0;
@@ -358,21 +365,23 @@ void Widget::on_actionSWING_clicked()
 {
     mode = STORED_ACTION;
     action = SWING;
+    handData_index = 0;
     ui->modeLabel->clear();
     ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
-    myTimerAction->stop();
+    if (myTimerAction->isActive()) myTimerAction->stop();
     myTimerAction = new QTimer(this);
     connect(myTimerAction, &QTimer::timeout, this, &Widget::ActionTimer);
-    myTimerAction->start(200);
+    myTimerAction->start(100);
 }
 
 void Widget::on_actionWIDEANDSHRINK_clicked()
 {
     mode = STORED_ACTION;
     action = WIDEANDSHRINK;
+    handData_index = 0;
     ui->modeLabel->clear();
     ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
-    myTimerAction->stop();
+    if (myTimerAction->isActive()) myTimerAction->stop();
     myTimerAction = new QTimer(this);
     connect(myTimerAction, &QTimer::timeout, this, &Widget::ActionTimer);
     myTimerAction->start(500);
@@ -382,12 +391,13 @@ void Widget::on_actionPOINTFINGER_clicked()
 {
     mode = STORED_ACTION;
     action = POINTFINGER;
+    handData_index = 0;
     ui->modeLabel->clear();
     ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
-    myTimerAction->stop();
+    if (myTimerAction->isActive()) myTimerAction->stop();
     myTimerAction = new QTimer(this);
     connect(myTimerAction, &QTimer::timeout, this, &Widget::ActionTimer);
-    myTimerAction->start(300);
+    myTimerAction->start(100);
 }
 
 void Widget::on_actionBACKMOVE_clicked()
@@ -402,9 +412,10 @@ void Widget::on_actionACTION33_clicked()
 {
     mode = STORED_ACTION;
     action = ACTION33;
+    handData_index = 0;
     ui->modeLabel->clear();
     ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
-    myTimerAction->stop();
+    if (myTimerAction->isActive()) myTimerAction->stop();
     myTimerAction = new QTimer(this);
     connect(myTimerAction, &QTimer::timeout, this, &Widget::ActionTimer);
     myTimerAction->start(800);
@@ -414,6 +425,14 @@ void Widget::on_actionRESUME_clicked()
 {
     mode = STORED_ACTION;
     action = RESUMEACTION;
+    for (uint8_t i = 0; i < 10; ++i) handData[i] = handMax[i];
+    handData[10] = wristStartPos;
+    handData[11] = wristStartPos;
+    handData[12] = Servo1Start;
+    handData[13] = Servo2Start;
+    handData[14] = Servo3Start;
+    handData[15] = Servo4Start;
+    handData[16] = Servo5Start;
     ui->modeLabel->clear();
     ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
 }
@@ -422,7 +441,22 @@ void Widget::ActionTimer()
 {
     ++handData_index;
     if      (mode == STORED_ACTION && action == SWING) {if (handData_index > 9) handData_index = 0;}
-    else if (mode == STORED_ACTION && action == POINTFINGER) {if (handData_index > 3) handData_index = 0;}
+    else if (mode == STORED_ACTION && action == POINTFINGER) {if (handData_index > 15) handData_index = 0;}
     else if (mode == STORED_ACTION && action == WIDEANDSHRINK) {if (handData_index > 1) handData_index = 0;}
     else if (mode == STORED_ACTION && action == ACTION33) {if (handData_index > 32) handData_index = 0;}
+    else if (mode == STORED_ACTION && action == PIANOACTION) {if (handData_index > 2) handData_index = 0;}
+}
+
+void Widget::on_modePiano_clicked()
+{
+    handData_index = 0;
+    action = PIANOACTION;
+    mode = STORED_ACTION;
+    ui->modeLabel->clear();
+    ui->modeLabel->setText(QString("当前模式：图像识别模式"));
+    if (myTimerAction->isActive()) myTimerAction->stop();
+    myTimerAction = new QTimer(this);
+    connect(myTimerAction, &QTimer::timeout, this, &Widget::ActionTimer);
+    myTimerAction->start(100);
+    //myTimerUR5Receive->start(10);
 }
