@@ -1,0 +1,2 @@
+{ID1MAX-730, ID2MAX-148, ID3MAX-1035, ID4MAX-875, ID5MAX--160, ID6MAX--360, ID7MAX--220, ID8MAX--280, ID9MAX--240, ID10MAX--70, wristStartPos-(0), wristStartPos-(0), Servo1Start-(49), Servo2Start-(0), Servo3Start-(0), Servo4Start-(0), Servo5Start-(0)},
+{ID1MAX-1124, ID2MAX-610, ID3MAX--90, ID4MAX--190, ID5MAX--160, ID6MAX--360, ID7MAX-1178, ID8MAX-1110, ID9MAX-1175, ID10MAX-1000, wristStartPos-(0), wristStartPos-(0), Servo1Start-(49), Servo2Start-(-16), Servo3Start-(0), Servo4Start-(0), Servo5Start-(0)},

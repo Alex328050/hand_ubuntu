@@ -3,6 +3,11 @@
 #include "ui_widget.h"
 #include "widget.h"
 #include <QWidget>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonParseError>
+#include <QJsonArray>
+#include "myInferior.h"
 
 void Widget::UR5Connect()
 {
@@ -12,7 +17,7 @@ void Widget::UR5Connect()
 
 void Widget::UR5Start()
 {
-    if (UR5Socket->state() == QTcpSocket::UnconnectedState) UR5Socket->connectToHost("127.0.0.1", 8);
+    if (UR5Socket->state() == QTcpSocket::UnconnectedState) UR5Socket->connectToHost("127.0.0.1", 5555);
     connect(UR5Socket, SIGNAL(connected()), this, SLOT(UR5Connect()));
 }
 
@@ -20,11 +25,28 @@ void Widget::UR5Receive()
 {
     if (action == NOACTION && mode == OBJECT)
     {
+        QByteArray tcpBuffer;
+        tcpBuffer.append(tcpSocket->readAll());
+        QJsonParseError parseError;
+        QJsonDocument jsonDocument = QJsonDocument::fromJson(tcpBuffer, &parseError);
+        if (parseError.error == QJsonParseError::NoError)
+        {
+            QJsonObject jsonObject = jsonDocument.object();
+            QString status = jsonObject["event"].toString();
+            qDebug() << status;
+            if (status == "grasp")
+            {
 
-    }
-    else if (action == NOACTION && mode == PIANO)
-    {
-
+            }
+            else if (status == "catch")
+            {
+                for (uint8_t i = 0; i < 10; ++i) handData[i] = handMin[i];
+            }
+            else if (status == "release")
+            {
+                for (uint8_t i = 0; i < 10; ++i) handData[i] = handMax[i];
+            }
+        }
     }
 }
 
@@ -46,7 +68,7 @@ void Widget::on_modeObject_clicked()
     action = NOACTION;
     mode = OBJECT;
     ui->modeLabel->clear();
-    ui->modeLabel->setText(QString("当前模式：图像识别模式"));
+    ui->modeLabel->setText(QString("当前模式：ros机械臂模式"));
     myTimerUR5Receive->start(10);
 }
 // void Widget::armMove(double mx, double my, double mz, double mrx, double mry, double mrz)

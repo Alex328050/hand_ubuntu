@@ -757,7 +757,7 @@ public:
         actionSWING->setText(QCoreApplication::translate("Widget", "\346\211\213\346\214\207SWING", nullptr));
         actionWIDEANDSHRINK->setText(QCoreApplication::translate("Widget", "\346\211\213\346\214\207\345\274\200\345\220\210", nullptr));
         actionPOINTFINGER->setText(QCoreApplication::translate("Widget", "\345\257\271\346\214\207", nullptr));
-        modeObject->setText(QCoreApplication::translate("Widget", "\347\211\251\345\223\201\345\210\206\347\261\273", nullptr));
+        modeObject->setText(QCoreApplication::translate("Widget", "ros\346\234\272\346\242\260\350\207\202", nullptr));
         actButton->setText(QCoreApplication::translate("Widget", "\346\211\247\350\241\214\345\212\250\344\275\234", nullptr));
         addActionButton->setText(QCoreApplication::translate("Widget", "\346\267\273\345\212\240\345\212\250\344\275\234", nullptr));
         deleteActionButton->setText(QCoreApplication::translate("Widget", "\345\210\240\351\231\244\345\212\250\344\275\234", nullptr));
