@@ -75,7 +75,7 @@
     <item row="7" column="0">
      <widget class="QPushButton" name="actionACTION33">
       <property name="text">
-       <string>33种动作</string>
+       <string>摆数字</string>
       </property>
      </widget>
     </item>

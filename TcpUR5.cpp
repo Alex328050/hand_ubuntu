@@ -26,7 +26,7 @@ void Widget::UR5Receive()
     if (action == NOACTION && mode == OBJECT)
     {
         QByteArray tcpBuffer;
-        tcpBuffer.append(tcpSocket->readAll());
+        tcpBuffer.append(UR5Socket->readAll());
         QJsonParseError parseError;
         QJsonDocument jsonDocument = QJsonDocument::fromJson(tcpBuffer, &parseError);
         if (parseError.error == QJsonParseError::NoError)
@@ -36,15 +36,20 @@ void Widget::UR5Receive()
             qDebug() << status;
             if (status == "grasp")
             {
-
+                handData[12] = Servo1Start-(55);
+                QTimer::singleShot(200, [=]() {
+                    for (uint8_t i = 0; i < 10; ++i) handData[i] = handMin[i];
+                });
             }
             else if (status == "catch")
             {
                 for (uint8_t i = 0; i < 10; ++i) handData[i] = handMin[i];
+                handData[12] = Servo1Start-(55);
             }
             else if (status == "release")
             {
                 for (uint8_t i = 0; i < 10; ++i) handData[i] = handMax[i];
+                handData[12] = Servo1Start;
             }
         }
     }

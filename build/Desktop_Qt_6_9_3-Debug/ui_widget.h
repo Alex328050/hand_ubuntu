@@ -740,7 +740,7 @@ public:
         baudrateBox->setItemText(0, QCoreApplication::translate("Widget", "115200", nullptr));
         baudrateBox->setItemText(1, QCoreApplication::translate("Widget", "921600", nullptr));
 
-        actionACTION33->setText(QCoreApplication::translate("Widget", "33\347\247\215\345\212\250\344\275\234", nullptr));
+        actionACTION33->setText(QCoreApplication::translate("Widget", "\346\221\206\346\225\260\345\255\227", nullptr));
         golveAdjustButton->setText(QCoreApplication::translate("Widget", "\346\240\241\345\207\206\346\225\260\346\215\256\346\211\213\345\245\227", nullptr));
         modeEveryAction->setText(QCoreApplication::translate("Widget", "\347\224\250\346\210\267\345\256\232\344\271\211\345\212\250\344\275\234\346\250\241\345\274\217", nullptr));
         actionBACKMOVE->setText(QCoreApplication::translate("Widget", "\345\217\215\345\220\221\351\251\261\345\212\250", nullptr));

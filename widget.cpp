@@ -272,6 +272,9 @@ void Widget::serialTransmit()
                 case PIANOACTION:
                     memcpy(handData, myhandDataScrew[handData_index], sizeof(handData));
                     break;
+                case ACTION33:
+                    memcpy(handData, myhandDataACTION33[handData_index], sizeof(handData));
+                    break;
                 default:
                     break;
                 }
@@ -397,7 +400,7 @@ void Widget::on_actionPOINTFINGER_clicked()
     if (myTimerAction->isActive()) myTimerAction->stop();
     myTimerAction = new QTimer(this);
     connect(myTimerAction, &QTimer::timeout, this, &Widget::ActionTimer);
-    myTimerAction->start(100);
+    myTimerAction->start(300);
 }
 
 void Widget::on_actionBACKMOVE_clicked()
@@ -406,6 +409,11 @@ void Widget::on_actionBACKMOVE_clicked()
     action = BACKMOVE;
     ui->modeLabel->clear();
     ui->modeLabel->setText(QString("当前模式：灵巧手自带动作模式"));
+    //for (uint8_t i = 0; i < 10; ++i) handData[i] = handMin[i];
+    handData[0] = handMin[0]+500;
+    handData[1] = handMin[1];
+    handData[8] = handMin[8];
+    handData[9] = handMin[9];
 }
 
 void Widget::on_actionACTION33_clicked()
@@ -441,9 +449,9 @@ void Widget::ActionTimer()
 {
     ++handData_index;
     if      (mode == STORED_ACTION && action == SWING) {if (handData_index > 9) handData_index = 0;}
-    else if (mode == STORED_ACTION && action == POINTFINGER) {if (handData_index > 15) handData_index = 0;}
+    else if (mode == STORED_ACTION && action == POINTFINGER) {if (handData_index > 3) handData_index = 0;}
     else if (mode == STORED_ACTION && action == WIDEANDSHRINK) {if (handData_index > 1) handData_index = 0;}
-    else if (mode == STORED_ACTION && action == ACTION33) {if (handData_index > 32) handData_index = 0;}
+    else if (mode == STORED_ACTION && action == ACTION33) {if (handData_index > 9) handData_index = 0;}
     else if (mode == STORED_ACTION && action == PIANOACTION) {if (handData_index > 2) handData_index = 0;}
 }
 

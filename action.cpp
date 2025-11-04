@@ -173,7 +173,7 @@ void Widget::on_addActionButton_clicked()
         std::ofstream myfile;
         myfile.open("action.txt", std::ios::app);
         myfile << "{";
-        for (uint8_t i = 0; i < 10; ++i) myfile << "ID" << std::to_string(i+1) << "MAX-" << handMax[i] - temp[i] << ", ";
+        for (uint8_t i = 0; i < 10; ++i) myfile << "ID" << std::to_string(i+1) << "MAX-" << ((temp[i] <= handMax[i])?(handMax[i] - temp[i]):handMax[i]) << ", ";
         myfile << "wristStartPos-(" << wristStartPos - temp[10] << "), ";
         myfile << "wristStartPos-(" << wristStartPos - temp[11] << "), ";
         myfile << "Servo1Start-(" << Servo1Start - temp[12] << "), ";

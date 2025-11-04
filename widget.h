@@ -32,7 +32,7 @@
 // #define ID10MIN 1350
 
 #define ID1MAX 1262
-#define ID1MIN 138
+#define ID1MIN 188
 #define ID2MAX 1940
 #define ID2MIN 780
 #define ID3MAX 1910
@@ -42,17 +42,17 @@
 #define ID5MAX 1840
 #define ID5MIN 350
 #define ID6MAX 1640
-#define ID6MIN 472
+#define ID6MIN 510
 #define ID7MAX 1780
-#define ID7MIN 602
+#define ID7MIN 750
 #define ID8MAX 1720
 #define ID8MIN 610
 #define ID9MAX 1760
-#define ID9MIN 585
-#define ID10MAX 1930
-#define ID10MIN 930
+#define ID9MIN 610
+#define ID10MAX 1887
+#define ID10MIN 950
 
-#define Servo1Start 118
+#define Servo1Start 94
 #define Servo2Start 87
 #define Servo3Start 70
 #define Servo4Start 64
