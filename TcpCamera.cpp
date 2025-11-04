@@ -9,22 +9,22 @@
 
 void Widget::on_modeCamera_clicked()
 {
+    myTimerTcpReceive->start(10);
     mode = CAMERA;
     ui->modeLabel->clear();
     ui->modeLabel->setText(QString("当前模式：图像识别模式"));
     action = NOACTION;
-    system("bash -c 'cd ./handpose && source ./.venv/bin/activate && python ./dexhand-ble.py'");
-    myTimerTcpReceive->start(10);
+    system("bash -c 'cd ./handpose && source ./.venv/bin/activate && python ./dexhand-ble.py' &");
 }
 
 void Widget::on_modeRock_clicked()
 {
+    myTimerTcpReceive->start(10);
     mode = ROCK;
     ui->modeLabel->clear();
     ui->modeLabel->setText(QString("当前模式：猜拳模式"));
     action = NOACTION;
-    system("bash -c 'cd ./handpose && source ./.venv/bin/activate && python ./dexhand-ble.py'");
-    myTimerTcpReceive->start(10);
+    system("bash -c 'cd ./handpose && source ./.venv/bin/activate && python ./dexhand-ble.py' &");
 }
 
 void Widget::tcpReceive()
@@ -64,14 +64,14 @@ void Widget::tcpReceive()
                 if (sortAngle[i] > 90) sortAngle[i] = 90;
             }
             if (sortAngle[1] > 45) sortAngle[1] = 45;
-            //qDebug() << sortAngle;
+            qDebug() << sortAngle;
             for (int i = 0; i < 10; ++i)
             {
                 handData[i] = static_cast<int>(handMax[i] - (sortAngle[i]/90) * (handMax[i]-handMin[i]));
                 //qDebug() << handData[i] << ",";
             }
             handData[1] = static_cast<int>(handMax[1] - (sortAngle[1]/45) * (handMax[1]-handMin[1]));
-            handData[12] = static_cast<int>(180 - (180 - 20) * (sortAngle[1]/45.0));
+            handData[12] = static_cast<int>((180 - 90) * (sortAngle[1]/45.0));
             //qDebug("\n");
             tcpBuffer.clear();
         }
@@ -87,7 +87,6 @@ void Widget::tcpReceive()
         {
             QJsonObject jsonObject = jsonDocument.object();
             QString rock = jsonObject["pose"].toString();
-            qDebug() << rock;
             if (rock == "rock")
             {
                 for (uint8_t i = 0; i < 10; ++i) handData[i] = handMax[i];
@@ -97,19 +96,19 @@ void Widget::tcpReceive()
             else if (rock == "scissors")
             {
                 for (uint8_t i = 0; i < 10; ++i) handData[i] = handMin[i];
-                handData[0] += 400;
-                handData[1] += 600;
+                handData[0] += 200;
+                handData[1] += 200;
                 handData[13] = Servo2Start;
                 handData[14] = Servo3Start;
             }
             else if (rock == "paper")
             {
                 for (uint8_t i = 0; i < 10; ++i) handData[i] = handMin[i];
-                handData[0] += 400;
-                handData[1] += 600;
+                handData[0] += 200;
+                handData[1] += 200;
                 for (uint8_t i = 2; i < 6; ++i) handData[i] = handMax[i];
-                handData[13] = Servo2Start + 10;
-                handData[14] = Servo3Start - 10;
+                handData[13] = Servo2Start - 10;
+                handData[14] = Servo3Start + 10;
             }
         }
     }

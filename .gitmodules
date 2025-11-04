@@ -1,0 +1,3 @@
+[submodule "build/Desktop_Qt_6_9_3-Debug/handpose"]
+	path = build/Desktop_Qt_6_9_3-Debug/handpose
+	url = https://gitee.com/kawakami_23/handpose.git

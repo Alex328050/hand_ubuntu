@@ -13,6 +13,7 @@ SOURCES += \
     TcpUR5.cpp \
     UdpGolve.cpp \
     action.cpp \
+    handData.cpp \
     main.cpp \
     myInferior.cpp \
     widget.cpp

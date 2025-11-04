@@ -75,7 +75,7 @@
     <item row="7" column="0">
      <widget class="QPushButton" name="actionACTION33">
       <property name="text">
-       <string>33种动作</string>
+       <string>摆数字</string>
       </property>
      </widget>
     </item>
@@ -197,7 +197,7 @@
     <item row="12" column="0">
      <widget class="QPushButton" name="modeObject">
       <property name="text">
-       <string>物品分类</string>
+       <string>机械臂</string>
       </property>
      </widget>
     </item>
